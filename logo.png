@@ -1,0 +1,40 @@
+<svg width="500" height="400" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Addis Loom Logo - Ethiopian Heritage Edition -->
+    <!-- Main version with text integrated into golden crossbar -->
+    
+    <!-- Left diagonal stroke (Ethiopian Green) -->
+    <path d="M 60 380 L 220 40" 
+          fill="none" 
+          stroke="#2C5F2D" 
+          stroke-width="60"
+          stroke-linecap="square"
+          stroke-linejoin="miter"/>
+    
+    <!-- Middle diagonal stroke (Ethiopian Green) -->
+    <path d="M 165 380 L 300 90" 
+          fill="none" 
+          stroke="#2C5F2D" 
+          stroke-width="60"
+          stroke-linecap="square"
+          stroke-linejoin="miter"/>
+    
+    <!-- Right diagonal stroke (Ethiopian Green) -->
+    <path d="M 370 230 L 460 380" 
+          fill="none" 
+          stroke="#2C5F2D" 
+          stroke-width="60"
+          stroke-linecap="square"
+          stroke-linejoin="miter"/>
+    
+    <!-- Golden yellow crossbar -->
+    <rect x="110" y="310" width="320" height="50" fill="#FCDC04" rx="3"/>
+    
+    <!-- Text "ADDIS LOOM" integrated into the golden bar -->
+    <text x="270" y="345" 
+          font-family="Arial, Helvetica, sans-serif" 
+          font-size="26" 
+          font-weight="900" 
+          fill="#000000" 
+          text-anchor="middle"
+          letter-spacing="6">ADDIS LOOM</text>
+</svg>
