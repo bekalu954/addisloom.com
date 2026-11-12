@@ -10,7 +10,7 @@ window.ADDIS_CONFIG = {
     name: "Addis Loom",
     email: "orders@addisloom.com",          // set up free on Cloudflare: Email > Email Routing
     phone: "",                               // e.g. "(804) 555-0100" — leave "" to hide
-    serviceArea: "",                         // e.g. "Shipping across the U.S. and local pickup in Richmond, VA"
+    serviceArea: "Serving Chesterfield County, Richmond and Midlothian, VA",
     instagram: "",                           // full URL, or "" to hide
     tiktok: "",
     facebook: ""
@@ -91,7 +91,7 @@ window.ADDIS_CONFIG = {
     { name: "Mesob basket", category: "home", price: "", image: "",
       note: "Woven serving basket.", amazon: "", walmart: "", checkout: "" },
     { name: "Jebena coffee set", category: "home", price: "", image: "",
-      note: "Clay coffee pot and cups for buna ceremony.", amazon: "", walmart: "", checkout: "" },
+      note: "Clay coffee pot and cups for the traditional coffee ceremony.", amazon: "", walmart: "", checkout: "" },
     { name: "Tibeb pattern tote", category: "accessories", price: "$24", image: "",
       note: "Made in our shop — tibeb border print.", amazon: "", walmart: "", checkout: "" }
   ],

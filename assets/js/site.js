@@ -16,14 +16,16 @@
     ["contact", "contact.html", "Bulk orders"]
   ];
   const header = $("#site-header");
+  const b0 = C.business;
   if (header) {
     header.className = "site-header";
     header.innerHTML = `
       <a class="skip" href="#main">Skip to content</a>
+      ${b0.serviceArea ? `<div class="topbar"><div class="wrap">${esc(b0.serviceArea)}${b0.phone ? ` &nbsp;|&nbsp; <a href="tel:${esc(b0.phone.replace(/[^\d+]/g, ""))}">${esc(b0.phone)}</a>` : ""}</div></div>` : ""}
       <div class="wrap bar">
         <a class="brand" href="index.html" aria-label="Addis Loom home">
           <img src="logo.svg" alt="" width="46" height="37">
-          <span class="brand-name">Addis Loom<small>አዲስ ሉም</small></span>
+          <span class="brand-name">Addis Loom<small>Custom Apparel &amp; Embroidery</small></span>
         </a>
         <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
         <nav class="nav" id="primary-nav" aria-label="Main">
@@ -207,24 +209,24 @@
   const IDEAS = {
     choir: { garment: "tee", color: "#FFFFFF", items: [
       { text: "St. Mary Choir", size: 34, color: "#2C5F2D", x: 250, y: 185, max: 165 },
-      { text: "መዘምራን", font: "Noto Sans Ethiopic", weight: 700, size: 30, color: "#B3302A", x: 250, y: 232, max: 160 }],
+      { text: "Christmas Concert 2026", font: "Source Sans 3", weight: 700, size: 20, color: "#B3302A", x: 250, y: 228, max: 160 }],
       stripe: { x: 250, y: 262 } },
     polo: { garment: "polo", color: "#1E1E1E", items: [
-      { text: "Buna House", size: 15, color: "#FCDC04", x: 318, y: 172, max: 70, stitch: true },
-      { text: "café & kitchen", font: "Source Sans 3", weight: 600, size: 9, color: "#FFFFFF", x: 318, y: 188, max: 70, stitch: true }] },
+      { text: "Riverside", size: 15, color: "#FCDC04", x: 318, y: 172, max: 70, stitch: true },
+      { text: "café & grill", font: "Source Sans 3", weight: 600, size: 9, color: "#FFFFFF", x: 318, y: 188, max: 70, stitch: true }] },
     reunion: { garment: "hoodie", color: "#2C5F2D", items: [
-      { text: "Tesfaye Family", size: 30, color: "#FCDC04", x: 250, y: 205, max: 155 },
+      { text: "Johnson Family", size: 30, color: "#FCDC04", x: 250, y: 205, max: 155 },
       { text: "Reunion 2027", font: "Source Sans 3", weight: 700, size: 22, color: "#FFFFFF", x: 250, y: 245, max: 150 }],
       stripe: { x: 250, y: 272, n: 7, d: 6 } },
     team: { garment: "tee", color: "#B3302A", items: [
       { text: "LIONS FC", size: 38, color: "#FCDC04", x: 250, y: 175, max: 165 },
       { text: "10", size: 110, color: "#FFFFFF", x: 250, y: 285, max: 165 }] },
     cap: { garment: "cap", color: "#22304A", items: [
-      { text: "Addis", size: 34, color: "#FCDC04", x: 250, y: 238, max: 140, stitch: true },
-      { text: "est. today", font: "Source Sans 3", weight: 700, size: 15, color: "#FFFFFF", x: 250, y: 272, max: 120, stitch: true }] },
+      { text: "YOUR LOGO", size: 30, color: "#FCDC04", x: 250, y: 238, max: 140, stitch: true },
+      { text: "est. 2026", font: "Source Sans 3", weight: 700, size: 15, color: "#FFFFFF", x: 250, y: 272, max: 120, stitch: true }] },
     tote: { garment: "tote", color: "#EFE7D6", items: [
-      { text: "Selam", font: "Playfair Display", weight: 700, size: 58, color: "#2C5F2D", x: 250, y: 310, max: 240 },
-      { text: "ሰላም", font: "Noto Sans Ethiopic", weight: 700, size: 34, color: "#B3302A", x: 250, y: 375, max: 200 }],
+      { text: "Sarah", font: "Playfair Display", weight: 700, size: 64, color: "#2C5F2D", x: 250, y: 310, max: 240 },
+      { text: "Class of 2026", font: "Source Sans 3", weight: 700, size: 26, color: "#B3302A", x: 250, y: 372, max: 200 }],
       stripe: { x: 250, y: 410, n: 11, d: 7 } }
   };
   function paintIdeas(root = document) {
@@ -236,12 +238,12 @@
   }
 
   const IDEA_CARDS = [
-    ["choir", "Church choir tees", "Full-color print, English and Ge'ez lettering"],
+    ["choir", "Church choir tees", "Full-color print, front and back"],
     ["polo", "Restaurant staff polos", "Embroidered left-chest logo"],
     ["reunion", "Family reunion hoodies", "Printed front, names on the back"],
     ["team", "Team jerseys", "Team name with player numbers"],
     ["cap", "Embroidered caps", "Front logo, any thread color"],
-    ["tote", "Gift totes", "Personal names with a tibeb border"]
+    ["tote", "Gift totes", "Personal names and dates"]
   ];
 
   /* Fills a .work-grid with real project photos, or example ideas if none yet. */
