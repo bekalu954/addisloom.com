@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom embroidery — logos, names &amp; caps | Addis Loom</title>
+  <meta name="description" content="Custom embroidered polos, caps, hoodies and jackets for businesses, churches, teams and gifts. Send your logo for a free quote.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Noto+Sans+Ethiopic:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="embroidery">
+  <header id="site-header"></header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap split">
+        <div>
+          <h1>Embroidery that holds up to every wash</h1>
+          <p class="lede">We stitch your logo, name or design onto polos, caps, hoodies, jackets and bags. Send us your artwork and we'll turn it into a stitch file, show you a proof, and get it made.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+            <a class="btn" href="#quote">Get a quote</a>
+            <a class="btn ghost" href="design.html?method=embroidery&amp;garment=polo">Try it in the studio</a>
+          </div>
+        </div>
+        <div class="stitch-art" aria-hidden="true">
+          <svg viewBox="0 0 320 320" width="320" height="320">
+            <defs>
+              <pattern id="satin" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+                <rect width="6" height="6" fill="#FCDC04"/><rect width="2" height="6" fill="#E3C200"/>
+              </pattern>
+              <pattern id="satinR" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)">
+                <rect width="6" height="6" fill="#B3302A"/><rect width="2" height="6" fill="#962520"/>
+              </pattern>
+            </defs>
+            <circle cx="160" cy="160" r="146" fill="#1F4520"/>
+            <circle cx="160" cy="160" r="146" fill="none" stroke="url(#satin)" stroke-width="16"/>
+            <circle cx="160" cy="160" r="128" fill="none" stroke="#FCDC04" stroke-width="2" stroke-dasharray="4 4"/>
+            <g fill="url(#satinR)">
+              <path d="M70 200 l14 -14 14 14 -14 14z"/><path d="M106 200 l14 -14 14 14 -14 14z"/><path d="M142 200 l14 -14 14 14 -14 14z"/>
+              <path d="M178 200 l14 -14 14 14 -14 14z"/><path d="M214 200 l14 -14 14 14 -14 14z"/>
+            </g>
+            <text x="160" y="150" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="40" fill="#fff" letter-spacing="1">Your logo</text>
+            <text x="160" y="250" text-anchor="middle" font-family="Noto Sans Ethiopic, sans-serif" font-weight="700" font-size="22" fill="#FCDC04">አዲስ ሉም</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <div class="tibeb" aria-hidden="true"></div>
+
+    <section class="section">
+      <div class="wrap split" style="align-items:start">
+        <div>
+          <h2>What we stitch</h2>
+          <ul class="check-list">
+            <li>Polos and button-down shirts — left chest logo, name on the right</li>
+            <li>Caps and beanies — front, side or back</li>
+            <li>Hoodies, crewnecks and jackets — chest, sleeve or large back designs</li>
+            <li>Aprons, totes and towels — for restaurants, salons and gifts</li>
+            <li>Personal names and monograms on items you bring in</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Good to know</h2>
+          <ul class="check-list">
+            <li>No minimum order. One embroidered cap is fine.</li>
+            <li id="embPrice"></li>
+            <li id="embSetup"></li>
+            <li>We match your brand colors to the closest thread colors and list them on the proof.</li>
+            <li>Very small text (under about ¼ inch) and photo-like detail don't stitch well. We'll suggest a simplified version if needed.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section forest">
+      <div class="wrap">
+        <div class="section-head"><h2>From logo to finished stitch</h2></div>
+        <ol class="steps">
+          <li><h3>Send your logo</h3><p>Any file you have. Vector files (AI, SVG, PDF) are ideal.</p></li>
+          <li><h3>We digitize it</h3><p>Your design is converted into a stitch file sized for each placement.</p></li>
+          <li><h3>Approve the proof</h3><p>You see placement, size and thread colors before we start.</p></li>
+          <li><h3>Stitched and delivered</h3><p id="embTurn"></p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="quote">
+      <div class="wrap split" style="align-items:start">
+        <div>
+          <h2>Get an embroidery quote</h2>
+          <p>Tell us what you need and we'll reply within one business day with a price and a proof.</p>
+          <div class="note">
+            <p style="margin:0">Have your logo file ready? After you send this form we'll reply by email, and you can attach the file to that reply. Or paste a link to it (Google Drive, Dropbox, your website) below.</p>
+          </div>
+        </div>
+        <form data-request="Embroidery quote request" novalidate>
+          <div class="form-grid">
+            <div class="field"><label for="eName">Name</label><input id="eName" name="name" type="text" required autocomplete="name"></div>
+            <div class="field"><label for="eEmail">Email</label><input id="eEmail" name="email" type="email" required autocomplete="email"></div>
+            <div class="field"><label for="eOrg">Business or group (optional)</label><input id="eOrg" name="organization" type="text" autocomplete="organization"></div>
+            <div class="field"><label for="ePhone">Phone (optional)</label><input id="ePhone" name="phone" type="tel" autocomplete="tel"></div>
+            <div class="field">
+              <label for="eItem">Item</label>
+              <select id="eItem" name="item" required>
+                <option value="">Choose one</option>
+                <option>Polo</option><option>Cap</option><option>Hoodie</option><option>Crewneck</option>
+                <option>Jacket</option><option>T-shirt</option><option>Apron</option><option>Tote bag</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="field"><label for="eQty">How many?</label><input id="eQty" name="quantity" type="number" min="1" required></div>
+            <fieldset class="field full">
+              <legend>Where should it go? (choose any)</legend>
+              <div class="radio-cards">
+                <label><input type="checkbox" name="placement_left_chest" value="yes"> Left chest</label>
+                <label><input type="checkbox" name="placement_right_chest" value="yes"> Right chest</label>
+                <label><input type="checkbox" name="placement_cap_front" value="yes"> Cap front</label>
+                <label><input type="checkbox" name="placement_sleeve" value="yes"> Sleeve</label>
+                <label><input type="checkbox" name="placement_back" value="yes"> Full back</label>
+              </div>
+            </fieldset>
+            <div class="field full"><label for="eLink">Link to your logo (optional)</label><input id="eLink" name="artwork_link" type="text" placeholder="https://"></div>
+            <div class="field full"><label for="eDate">Need it by (optional)</label><input id="eDate" name="needed_by" type="date"></div>
+            <div class="field full"><label for="eNotes">Details</label><textarea id="eNotes" name="details" placeholder="Garment colors, sizes, names to add, thread colors…"></textarea></div>
+          </div>
+          <button class="btn gold" type="submit" style="margin-top:18px">Send quote request</button>
+          <div class="form-status" role="status"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+    (function () {
+      const { config: C, money } = window.Addis;
+      const e = C.methods.embroidery;
+      document.getElementById("embPrice").textContent = `Each stitched spot is ${money(e.perLocation)} per piece on top of the garment, with up to about 8,000 stitches included (a typical left-chest logo).`;
+      document.getElementById("embSetup").textContent = `New designs have a one-time ${money(e.setup)} digitizing fee. Reorders of the same design skip it.`;
+      document.getElementById("embTurn").textContent = "Usually " + C.turnaround + ".";
+    })();
+  </script>
+</body>
+</html>

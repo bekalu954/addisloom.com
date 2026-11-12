@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design studio — Addis Loom custom shirts, hoodies &amp; caps</title>
+  <meta name="description" content="Design your own T-shirt, hoodie, polo, cap or tote. Add text in English or Amharic, upload a logo or photo, choose printing or embroidery and get a price instantly.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Noto+Sans+Ethiopic:wght@500;700&family=Noto+Serif+Ethiopic:wght@700&family=Source+Sans+3:wght@400;600;700&family=Playfair+Display:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="design">
+  <header id="site-header"></header>
+
+  <main id="main">
+    <section class="page-hero" style="padding-bottom:28px">
+      <div class="wrap">
+        <h1>Design studio</h1>
+        <p class="lede">Pick a garment, add your text or artwork, and see the price as you go. When it looks right, send it to us and we'll email a proof.</p>
+      </div>
+    </section>
+
+    <section style="padding-bottom:88px">
+      <div class="wrap studio">
+        <!-- Preview -->
+        <div class="stage">
+          <div class="stage-box">
+            <canvas id="studioCanvas" width="1000" height="1120" aria-label="Garment preview. Drag your text or image to move it."></canvas>
+            <div class="stage-tools">
+              <div class="side-toggle" role="group" aria-label="Side">
+                <button type="button" data-side="front" aria-pressed="true">Front</button>
+                <button type="button" data-side="back" aria-pressed="false">Back</button>
+              </div>
+              <button class="btn small ghost" type="button" id="centerBtn">Center selected</button>
+              <button class="btn small ghost" type="button" id="downloadBtn">Download mockup</button>
+            </div>
+            <p class="muted" style="margin:10px 0 0">Drag to move. The dashed box shows the area we can decorate.</p>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div>
+          <div class="panel">
+            <h2>Garment</h2>
+            <div class="radio-cards" id="garmentPick" role="radiogroup" aria-label="Garment"></div>
+            <div class="field" style="margin-top:16px">
+              <span class="hint" id="colorName">Color</span>
+              <div class="swatch-row" id="colorPick" role="group" aria-label="Garment color" style="flex-wrap:wrap"></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>Decoration</h2>
+            <div class="radio-cards" id="methodPick" role="radiogroup" aria-label="Decoration method"></div>
+            <p class="muted" id="methodNote" style="margin:10px 0 0"></p>
+          </div>
+
+          <div class="panel">
+            <h2>Text</h2>
+            <div class="field">
+              <label for="textInput">Your text</label>
+              <p class="hint">English or Amharic (ፊደል) both work.</p>
+              <input id="textInput" type="text" maxlength="60" placeholder="e.g. Selam family reunion 2027">
+            </div>
+            <div class="row-inline" style="margin-top:12px">
+              <div class="field">
+                <label for="fontPick">Font</label>
+                <select id="fontPick">
+                  <option value='800 {s}px "Bricolage Grotesque"'>Bold modern</option>
+                  <option value='700 {s}px "Source Sans 3"'>Clean</option>
+                  <option value='700 {s}px "Playfair Display"'>Classic serif</option>
+                  <option value='400 {s}px "Pacifico"'>Script</option>
+                  <option value='700 {s}px "Noto Serif Ethiopic"'>Ge'ez serif</option>
+                  <option value='700 {s}px "Noto Sans Ethiopic"'>Ge'ez sans</option>
+                </select>
+              </div>
+              <div class="field" style="flex:0 0 auto">
+                <label for="textColor">Color</label>
+                <input id="textColor" type="color" value="#2C5F2D">
+              </div>
+            </div>
+            <button class="btn small" type="button" id="addText" style="margin-top:14px">Add text</button>
+          </div>
+
+          <div class="panel">
+            <h2>Image or logo</h2>
+            <label class="dropzone" id="dropzone" for="fileInput">
+              <strong>Choose a file</strong> or drop it here<br>
+              <span class="muted">PNG with a transparent background looks best</span>
+            </label>
+            <input id="fileInput" type="file" accept="image/png,image/jpeg,image/svg+xml,image/webp" hidden>
+          </div>
+
+          <div class="panel" id="layerPanel">
+            <h2>On this side</h2>
+            <p class="muted" id="emptyLayers">Nothing here yet. Add text or an image above.</p>
+            <ul class="layer-list" id="layerList"></ul>
+            <div class="field" id="sizeCtl" hidden style="margin-top:10px">
+              <label for="scaleRange">Size of selected item</label>
+              <input id="scaleRange" type="range" min="0.2" max="3" step="0.02" value="1">
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>Quantity</h2>
+            <div id="qtyBox"></div>
+            <p class="muted" id="plusNote" style="margin:10px 0 0"></p>
+          </div>
+
+          <div class="panel">
+            <div class="estimate" aria-live="polite">
+              <div>Estimated total</div>
+              <div class="total" id="estTotal">$0.00</div>
+              <div id="estEach"></div>
+              <dl id="estLines"></dl>
+            </div>
+            <p class="muted" style="margin-top:10px">Final price is confirmed on your proof. Shipping is added at invoice.</p>
+          </div>
+
+          <div class="panel">
+            <h2>Send for a proof</h2>
+            <form id="orderForm" novalidate>
+              <div class="form-grid">
+                <div class="field"><label for="oName">Name</label><input id="oName" name="name" type="text" required autocomplete="name"></div>
+                <div class="field"><label for="oEmail">Email</label><input id="oEmail" name="email" type="email" required autocomplete="email"></div>
+                <div class="field"><label for="oPhone">Phone (optional)</label><input id="oPhone" name="phone" type="tel" autocomplete="tel"></div>
+                <div class="field"><label for="oDate">Need it by (optional)</label><input id="oDate" name="needed_by" type="date"></div>
+                <div class="field full"><label for="oNotes">Anything we should know?</label><textarea id="oNotes" name="notes" placeholder="Placement, thread colors, names per shirt, delivery or pickup…"></textarea></div>
+              </div>
+              <p class="muted" style="margin-top:12px">If you uploaded an image, we'll reply asking for the original file so it prints sharp.</p>
+              <button class="btn gold" type="submit" style="margin-top:6px">Send design for a proof</button>
+              <div class="form-status" role="status"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/designer.js"></script>
+</body>
+</html>

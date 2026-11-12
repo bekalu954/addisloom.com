@@ -1,108 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Addis Loom – Ethiopian Heritage & Curated Marketplace</title>
- <meta name="description" content="Addis Loom offers Ethiopian heritage clothing and curated products. Shop our collections on Amazon and Walmart.">
- <link rel="icon" type="image/png" href="favicon.png">
- <style>
- * { margin: 0; padding: 0; box-sizing: border-box; }
- body {
- font-family: 'Segoe UI', Tahoma, sans-serif;
-   background: #ffffff;
- min-height: 100vh;
- color: #222;
- }
- .container {
- max-width: 900px;
- margin: 0 auto;
- padding: 40px 20px;
- text-align: center;
- }
- .hero {
- background: #ffffff;
- padding: 50px 30px;
- border-radius: 20px;
- box-shadow: 0 10px 40px rgba(0,0,0,0.25);
- margin-bottom: 30px;
- }
- .logo {
- max-width: 160px;
- width: 100%;
- height: auto;
- margin-bottom: 20px;
- }
- .tagline {
- font-size: 1.3em;
- color: #2d5e1e;
- margin-bottom: 35px;
- font-weight: 500;
- }
- .buttons {
- display: flex;
- gap: 20px;
- justify-content: center;
- flex-wrap: wrap;
- }
- .btn {
- display: inline-block;
- padding: 18px 40px;
- font-size: 1.15em;
- font-weight: bold;
- text-decoration: none;
- border-radius: 50px;
- transition: transform 0.2s, box-shadow 0.2s;
- color: white;
- letter-spacing: 0.5px;
- }
- .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
- .btn-amazon { background: #FF9900; }
- .btn-walmart { background: #0071CE; }
- .about {
- background: #ffffff;
- padding: 40px 30px;
- border-radius: 20px;
- box-shadow: 0 10px 40px rgba(0,0,0,0.18);
- }
- .about h2 {
- color: #2d5e1e;
- margin-bottom: 15px;
- font-size: 1.8em;
- }
- .about p {
- line-height: 1.7;
- color: #444;
- font-size: 1.05em;
- }
- footer {
- text-align: center;
- color: #000000;
- padding: 30px 20px;
- font-size: 0.9em;
- text-shadow: 0 1px 3px rgba(0,0,0,0.3);
- }
- @media (max-width: 600px) {
- .hero { padding: 35px 20px; }
- .btn { padding: 15px 30px; font-size: 1em; width: 100%; }
- }
- </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Addis Loom — Custom T-shirts, Embroidery &amp; Ethiopian Heritage Goods</title>
+  <meta name="description" content="Design custom T-shirts, hoodies, polos and caps with full-color printing or embroidery, and shop Ethiopian heritage clothing and curated goods from Addis Loom.">
+  <meta property="og:title" content="Addis Loom — custom printing, embroidery & heritage goods">
+  <meta property="og:description" content="Design your own shirts and caps, or shop Ethiopian heritage clothing.">
+  <meta property="og:image" content="https://addisloom.com/logo.svg">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Noto+Sans+Ethiopic:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
- <div class="container">
- <div class="hero">
- <img src="logo.svg" alt="Addis Loom logo" class="logo">
- <p class="tagline">Ethiopian Heritage Clothing &amp; Curated Goods</p>
- <div class="buttons">
- <a href="https://www.amazon.com/gp/css/homepage.html?ref_=nav_youraccount_btn" class="btn btn-amazon" target="_blank" rel="noopener">Shop on Amazon</a>
- <a href="https://www.walmart.com/?&adid=22222222220220085369&wmlspartner=wmtlabs&wl0=e&wl1=g&wl2=c&wl3=678300215746&wl4=kwd-27665750&wl5=9008419&wl6=&wl7=&wl8=&veh=sem&wl21=&gad_source=1&gad_campaignid=316516609&gbraid=0AAAAADmfBIq7NVRASnSqDnSicQXFz9KMl&gclid=Cj0KCQjww8rQBhDjARIsAE43KPOytmHwYfI0OiBTitY3QSv7MeD1zNA9PBbgYTbb7GmY5mJNmLsLhJwaAvL8EALw_wcB" class="btn btn-walmart" target="_blank" rel="noopener">Shop on Walmart</a>
- </div>
- </div>
- <div class="about">
- <h2>About Addis Loom</h2>
- <p>Addis Loom celebrates the richness of Ethiopian heritage through handpicked clothing and curated products. We bring traditional craftsmanship and modern style to customers worldwide through trusted marketplaces. Browse our collections on Amazon and Walmart to discover pieces that connect culture, quality, and everyday life.</p>
- </div>
- </div>
- <footer>© 2026 Addis Loom. All rights reserved.</footer>
+<body data-page="home">
+  <header id="site-header"></header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <h1>Your words, your logo, printed or stitched.</h1>
+          <p class="lede">Addis Loom makes custom T-shirts, hoodies, polos, caps and totes with full-color printing and embroidery, alongside a collection of Ethiopian heritage clothing and goods.</p>
+          <div class="actions">
+            <a class="btn" href="design.html">Start a design</a>
+            <a class="btn ghost" href="embroidery.html">Get an embroidery quote</a>
+          </div>
+          <p class="muted">One shirt or two hundred. You approve a proof before anything is made.</p>
+        </div>
+
+        <div class="hero-try">
+          <canvas id="heroShirt" width="500" height="560" aria-label="Preview of a T-shirt with your text"></canvas>
+          <label for="heroText" style="margin-top:14px">Try it: type something</label>
+          <input id="heroText" type="text" maxlength="28" value="Buna time" autocomplete="off">
+          <div class="row">
+            <div class="swatch-row" id="heroSwatches" role="group" aria-label="Shirt color"></div>
+            <a class="btn small" id="heroGo" href="design.html">Keep designing</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="tibeb" aria-hidden="true"></div>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Three ways to shop with us</h2>
+        </div>
+        <div class="paths">
+          <div class="path lead">
+            <h3>Custom printing</h3>
+            <p>Full-color designs on T-shirts, hoodies, crewnecks and totes. Upload a photo or logo, add text in English or Amharic, and see it on the garment before you order.</p>
+            <div class="from" id="fromPrint"></div>
+            <a class="btn" href="design.html">Open the design studio</a>
+          </div>
+          <div class="path">
+            <h3>Embroidery</h3>
+            <p>Stitched logos and names on polos, caps, jackets and hoodies. Built to last for business uniforms, church groups and gifts.</p>
+            <div class="from" id="fromEmb"></div>
+            <a class="btn ghost" href="embroidery.html">See embroidery options</a>
+          </div>
+          <div class="path">
+            <h3>Heritage collection</h3>
+            <p>Habesha clothing, netela, coffee sets and home goods, available here and through our Amazon and Walmart stores.</p>
+            <div class="from">&nbsp;</div>
+            <a class="btn ghost" href="shop.html">Browse the collection</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section forest">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>How a custom order works</h2>
+        </div>
+        <ol class="steps">
+          <li><h3>Design it</h3><p>Build your design in the studio, or send us your artwork and an idea.</p></li>
+          <li><h3>Approve the proof</h3><p>We email a mockup and final price. Nothing is made until you say yes.</p></li>
+          <li><h3>We make it</h3><p>Printed or embroidered in our shop. <span id="turnaround"></span>.</p></li>
+          <li><h3>Pick up or ship</h3><p>Collect your order locally or have it shipped to your door.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section mist">
+      <div class="wrap split" style="align-items:start">
+        <div>
+          <h2>Straightforward pricing</h2>
+          <p>The garment price plus a charge for each printed side or embroidered spot. Bigger orders cost less per piece.</p>
+          <div class="tiers" id="tiers"></div>
+          <p class="muted" style="margin-top:18px" id="pricingNotes"></p>
+        </div>
+        <div class="table-scroll">
+          <table class="price-table" id="priceTable">
+            <thead><tr><th>Item</th><th>Garment</th><th>+ Print per side</th><th>+ Embroidery per spot</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head"><h2>Who we make for</h2></div>
+        <div class="groups">
+          <div><h3>Churches &amp; choirs</h3><p>Matching shirts for Timket, Meskel, choir trips and youth programs, with Ge'ez lettering done right.</p></div>
+          <div><h3>Weddings &amp; reunions</h3><p>Family names, dates and photos on shirts and totes everyone will keep.</p></div>
+          <div><h3>Small businesses</h3><p>Embroidered polos and caps for staff, restaurants, salons and shops.</p></div>
+          <div><h3>Teams &amp; clubs</h3><p>Jerseys, warm-ups and fan gear with names and numbers.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section mist">
+      <div class="wrap split" style="align-items:start">
+        <div>
+          <h2>Questions people ask</h2>
+          <p>Something else on your mind? <a data-email href="#">Email us</a> and we'll answer within a business day.</p>
+        </div>
+        <div class="faq">
+          <details><summary>Is there a minimum order?</summary><p>No. Printed items can be ordered one at a time. Embroidery is also available from one piece; a one-time digitizing fee applies to each new design.</p></details>
+          <details><summary>What kind of artwork should I send?</summary><p>A high-resolution PNG, PDF, SVG or AI file works best. A phone photo of a sketch is fine for a starting point — we'll clean it up and send a proof.</p></details>
+          <details><summary>Can you print in Amharic?</summary><p>Yes. Type Ge'ez letters directly in the design studio, or send us the wording and we'll set it for you.</p></details>
+          <details><summary>How do I pay?</summary><p>After you approve your proof, we send a secure invoice that you can pay online by card.</p></details>
+          <details><summary>How long does it take?</summary><p id="faqTurn"></p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+  (function () {
+    const { config: C, money, drawGarment, AREAS } = window.Addis;
+    // Price hooks
+    const g = C.garments, m = C.methods;
+    const minPrint = Math.min(...Object.values(g).filter((x) => x.printOk !== false).map((x) => x.base)) + m.print.perSide;
+    const minEmb = Math.min(...Object.values(g).filter((x) => x.embroideryOk).map((x) => x.base)) + m.embroidery.perLocation;
+    document.getElementById("fromPrint").textContent = "From " + money(minPrint) + " a piece";
+    document.getElementById("fromEmb").textContent = "From " + money(minEmb) + " a piece";
+    document.getElementById("turnaround").textContent = C.turnaround.charAt(0).toUpperCase() + C.turnaround.slice(1);
+    document.getElementById("faqTurn").textContent = "Usually " + C.turnaround + ". " + C.rushNote;
+
+    const tbody = document.querySelector("#priceTable tbody");
+    tbody.innerHTML = Object.values(g).map((x) => `<tr><td>${x.label}</td><td class="num">${money(x.base)}</td><td class="num">${x.printOk === false ? "—" : money(m.print.perSide)}</td><td class="num">${x.embroideryOk ? money(m.embroidery.perLocation) : "—"}</td></tr>`).join("");
+    document.getElementById("tiers").innerHTML = C.quantityDiscounts.map((d) => `<span class="tier">${d.min}+ pieces: ${Math.round(d.off * 100)}% off</span>`).join("");
+    document.getElementById("pricingNotes").textContent = `Sizes 2XL and up add ${money(C.plusSizeUpcharge)}. Embroidery has a one-time ${money(m.embroidery.setup)} digitizing fee per new design.`;
+
+    // Hero try-on
+    const cv = document.getElementById("heroShirt"), ctx = cv.getContext("2d");
+    const input = document.getElementById("heroText");
+    const picks = C.colors.slice(0, 5);
+    let color = picks[0].hex;
+    const sw = document.getElementById("heroSwatches");
+    picks.forEach((c, i) => {
+      const b = document.createElement("button");
+      b.className = "swatch"; b.style.background = c.hex; b.type = "button";
+      b.setAttribute("aria-label", c.name); b.setAttribute("aria-pressed", i === 0);
+      b.onclick = () => { color = c.hex; sw.querySelectorAll(".swatch").forEach((s) => s.setAttribute("aria-pressed", s === b)); draw(); };
+      sw.appendChild(b);
+    });
+    function draw() {
+      ctx.clearRect(0, 0, 500, 560);
+      drawGarment(ctx, "tee", color, "front");
+      const [x, y, w, h] = AREAS.tee.front;
+      const text = input.value.trim() || " ";
+      const ink = window.Addis.isDark(color) ? "#FCDC04" : "#2C5F2D";
+      let size = 64;
+      ctx.font = `800 ${size}px "Bricolage Grotesque", sans-serif`;
+      while (ctx.measureText(text).width > w + 20 && size > 18) { size -= 2; ctx.font = `800 ${size}px "Bricolage Grotesque", sans-serif`; }
+      ctx.fillStyle = ink; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.fillText(text, x + w / 2, y + 90);
+      // small tibeb stripe under the text
+      const sy = y + 90 + size * 0.7;
+      for (let i = 0; i < 9; i++) {
+        ctx.fillStyle = ["#B3302A", "#FCDC04", "#2C5F2D"][i % 3];
+        ctx.beginPath(); const cx = x + w / 2 - 64 + i * 16;
+        ctx.moveTo(cx, sy); ctx.lineTo(cx + 7, sy + 7); ctx.lineTo(cx, sy + 14); ctx.lineTo(cx - 7, sy + 7); ctx.closePath(); ctx.fill();
+      }
+      document.getElementById("heroGo").href = "design.html?text=" + encodeURIComponent(input.value) + "&color=" + encodeURIComponent(color);
+    }
+    input.addEventListener("input", draw);
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(draw);
+    draw();
+  })();
+  </script>
 </body>
 </html>
