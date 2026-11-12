@@ -13,7 +13,6 @@
 
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --text: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
-  --geez: "Noto Sans Ethiopic", "Nyala", sans-serif;
 
   --r-sm: 6px;
   --r-md: 14px;
@@ -45,7 +44,6 @@ p { margin: 0 0 1em; max-width: 68ch; }
 a { color: var(--forest); text-underline-offset: 3px; }
 a:hover { color: var(--forest-deep); }
 :focus-visible { outline: 3px solid var(--tibeb-red); outline-offset: 3px; border-radius: 3px; }
-.geez { font-family: var(--geez); }
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
 .lede { font-size: 1.2rem; color: var(--body); max-width: 56ch; }
 .muted { color: #637263; font-size: .95rem; }
@@ -67,12 +65,14 @@ a:hover { color: var(--forest-deep); }
 .tibeb.thin { height: 12px; background-size: 12px 12px; border-width: 2px; }
 
 /* ---------- Header ---------- */
+.topbar { background: var(--forest-deep); color: #E4EDE3; font-size: .88rem; font-weight: 600; padding: 7px 0; }
+.topbar a { color: var(--gold); text-decoration: none; }
 .site-header { background: var(--paper); position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); }
 .site-header .bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 72px; }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
 .brand img { width: 46px; height: auto; }
 .brand-name { font-family: var(--display); font-weight: 800; font-size: 1.3rem; line-height: 1; }
-.brand-name small { display: block; font-family: var(--geez); font-weight: 500; font-size: .8rem; color: var(--forest); margin-top: 3px; }
+.brand-name small { display: block; font-family: var(--text); font-weight: 600; font-size: .78rem; color: var(--forest); margin-top: 4px; letter-spacing: .01em; }
 .nav { display: flex; align-items: center; gap: 4px; }
 .nav a { text-decoration: none; color: var(--ink); font-weight: 600; padding: 8px 12px; border-radius: var(--r-sm); }
 .nav a:hover { background: var(--mist); }
@@ -315,7 +315,6 @@ input[type="color"] { width: 52px; height: 44px; padding: 2px; border: 2px solid
 .name-meaning > div { padding: 32px; }
 .name-meaning > div + div { border-left: 2px solid var(--ink); }
 .name-meaning .word { font-family: var(--display); font-weight: 800; font-size: 2.6rem; color: var(--ink); line-height: 1; }
-.name-meaning .word .geez { font-size: 1.4rem; color: var(--forest); margin-left: 10px; font-weight: 700; }
 .name-meaning p { margin: 12px 0 0; }
 @media (max-width: 760px) { .name-meaning { grid-template-columns: 1fr; } .name-meaning > div + div { border-left: 0; border-top: 2px solid var(--ink); } }
 
