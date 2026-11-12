@@ -328,3 +328,23 @@ input[type="color"] { width: 52px; height: 44px; padding: 2px; border: 2px solid
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* Footer bottom bar with service area */
+.foot-legal { display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
+.foot-legal a { color: var(--gold); text-decoration: none; }
+
+/* What we decorate */
+.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.cat-card { display: block; text-decoration: none; color: inherit; }
+.cat-card .work-media { transition: transform .15s ease; }
+.cat-card:hover .work-media { transform: translateY(-3px); }
+.cat-card strong { display: block; font-family: var(--display); color: var(--ink); font-size: 1.1rem; padding-top: 12px; }
+.cat-card span { color: #637263; font-size: .95rem; }
+@media (max-width: 860px) { .cat-grid { grid-template-columns: 1fr 1fr; gap: 20px; } }
+@media (max-width: 480px) { .cat-grid { grid-template-columns: 1fr; } }
+
+/* Group & spirit wear */
+.spirit-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px 36px; margin-top: 28px; }
+.spirit-list h3 { color: var(--gold); font-size: 1.1rem; margin-bottom: 6px; }
+.spirit-list p { margin: 0; }
+.section.forest .check-list li::before { border-color: var(--gold); }
