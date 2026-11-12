@@ -68,6 +68,7 @@
     (function () {
       const { config: C, esc } = window.Addis;
       const labels = { all: "Everything", clothing: "Clothing", home: "Home & coffee", accessories: "Accessories", custom: "Made in our shop" };
+      C.products = C.products.filter((p) => !["home", "accessories"].includes(p.category));
       const cats = ["all", ...new Set(C.products.map((p) => p.category))];
       let current = "all";
       const f = document.getElementById("filters");
