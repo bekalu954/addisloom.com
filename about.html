@@ -98,7 +98,7 @@
       if (b.phone) items.push(`Phone: <a href="tel:${esc(b.phone.replace(/[^\d+]/g, ""))}">${esc(b.phone)}</a>`);
       if (b.serviceArea) items.push(esc(b.serviceArea));
       if (b.instagram) items.push(`Instagram: <a href="${esc(b.instagram)}" target="_blank" rel="noopener">follow our work</a>`);
-      items.push(`Shop the heritage collection on <a href="${esc(C.stores.amazon)}" target="_blank" rel="noopener">Amazon</a> and <a href="${esc(C.stores.walmart)}" target="_blank" rel="noopener">Walmart</a>`);
+      items.push(`Browse the <a href="shop.html">heritage collection</a>`);
       document.getElementById("contactList").innerHTML = items.map((i) => `<li>${i}</li>`).join("");
       paintIdeas();
     })();
