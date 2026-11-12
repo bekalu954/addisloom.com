@@ -104,7 +104,9 @@
     $("#methodPick").innerHTML = opts.map(([k, m]) =>
       `<label><input type="radio" name="method" value="${k}"${k === state.method ? " checked" : ""}> ${esc(m.label)}</label>`).join("");
     $("#methodNote").textContent = state.method === "embroidery"
-      ? `Best for logos and names. Up to about 8,000 stitches per spot is included; a one-time ${money(C.methods.embroidery.setup)} digitizing fee turns your design into stitches. Fine detail and gradients are simplified.`
+      ? (C.showPrices
+          ? `Best for logos and names. Up to about 8,000 stitches per spot is included; a one-time ${money(C.methods.embroidery.setup)} digitizing fee turns your design into stitches. Fine detail and gradients are simplified.`
+          : "Best for logos and names. We convert your design into stitches; very fine detail and gradients are simplified.")
       : "Best for photos, gradients and many colors. Soft to the touch and machine washable.";
   }
   $("#methodPick").addEventListener("change", (e) => { state.method = e.target.value; buildMethods(); render(); price(); });
@@ -239,7 +241,7 @@
       $("#qtyBox").innerHTML = `<div class="size-grid">${C.sizes.map((s) =>
         `<div><label for="q${s}">${s}</label><input id="q${s}" type="number" min="0" max="5000" value="${state.qty[s] || 0}" data-size="${s}"></div>`).join("")}</div>`;
       if (!Object.values(state.qty).some((v) => v > 0)) { state.qty = { M: 1 }; $("#qM").value = 1; }
-      $("#plusNote").textContent = `2XL and larger add ${money(C.plusSizeUpcharge)} each.`;
+      $("#plusNote").textContent = C.showPrices ? `2XL and larger add ${money(C.plusSizeUpcharge)} each.` : "";
     }
     $("#qtyBox").querySelectorAll("input").forEach((i) => i.addEventListener("input", () => {
       state.qty[i.dataset.size] = Math.max(0, parseInt(i.value, 10) || 0); price();
@@ -265,6 +267,17 @@
   }
   function price() {
     const p = calc();
+    if (!C.showPrices) {
+      $("#estLabel").textContent = "Your order";
+      $("#estTotal").textContent = p.count ? `${p.count} piece${p.count > 1 ? "s" : ""}` : "No pieces yet";
+      $("#estEach").textContent = p.count ? "Free quote within one business day" : "Add a quantity above";
+      const colorName = (C.colors.find((c) => c.hex === state.color) || {}).name || "";
+      const lines = [["Item", p.g.label], ["Color", colorName], ["Decoration", C.methods[state.method].label],
+        ["Decorated sides", p.sides ? String(p.sides) : "None yet"]];
+      $("#estLines").innerHTML = lines.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("");
+      $("#estNote").textContent = "Larger orders cost less per piece. We'll email your price and a mockup before anything is made.";
+      return;
+    }
     $("#estTotal").textContent = money(p.total);
     $("#estEach").textContent = p.count ? `${p.count} piece${p.count > 1 ? "s" : ""} · about ${money((p.total) / p.count)} each` : "Add a quantity to see your price";
     const lines = [
@@ -303,18 +316,18 @@
     const sizes = Object.entries(state.qty).filter(([, n]) => n > 0).map(([s, n]) => (s === "ONE" ? n : `${s} × ${n}`)).join(", ");
     const data = Object.fromEntries(new FormData(form).entries());
     Object.assign(data, {
-      _subject: `Custom order request — ${p.g.label} (${p.count})`,
+      _subject: `Quote request — ${p.g.label} (${p.count})`,
       garment: p.g.label,
       color: (C.colors.find((c) => c.hex === state.color) || {}).name,
       method: C.methods[state.method].label,
       front: describe("front"),
       back: describe("back"),
       sizes,
-      estimate: money(p.total)
     });
+    if (C.showPrices) data.estimate = money(p.total);
     const btn = form.querySelector("[type=submit]"); btn.disabled = true;
     const ok = await sendRequest(data, status, {
-      okText: "Design sent. We'll email your proof and final price within one business day.",
+      okText: "Quote request sent. We'll email your price and a mockup within one business day.",
       mailText: "Your email app should open with the design details. Click Download mockup above and attach the image before you press send."
     });
     btn.disabled = false;

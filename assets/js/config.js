@@ -28,7 +28,12 @@ window.ADDIS_CONFIG = {
     walmart: "https://www.walmart.com/"
   },
 
-  /* ---------- Custom apparel pricing (US dollars) ---------- */
+  /* Show prices on the site?  false = quote-only (no prices anywhere; customers
+     request a free quote).  true = show the prices below in the pricing table,
+     design studio and service pages. */
+  showPrices: false,
+
+  /* ---------- Custom apparel pricing (US dollars) — used only if showPrices is true ---------- */
   garments: {
     tee:    { label: "T-shirt",          base: 14, embroideryOk: true  },
     hoodie: { label: "Hoodie",           base: 32, embroideryOk: true  },
