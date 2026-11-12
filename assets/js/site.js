@@ -21,7 +21,6 @@
     header.className = "site-header";
     header.innerHTML = `
       <a class="skip" href="#main">Skip to content</a>
-      ${b0.serviceArea ? `<div class="topbar"><div class="wrap">${esc(b0.serviceArea)}${b0.phone ? ` &nbsp;|&nbsp; <a href="tel:${esc(b0.phone.replace(/[^\d+]/g, ""))}">${esc(b0.phone)}</a>` : ""}</div></div>` : ""}
       <div class="wrap bar">
         <a class="brand" href="index.html" aria-label="Addis Loom home">
           <img src="logo.svg" alt="" width="46" height="37">
@@ -52,8 +51,7 @@
         <div class="foot-grid">
           <div>
             <img src="logo.svg" alt="Addis Loom" width="90" style="filter:brightness(1.6)">
-            <p style="margin-top:14px">Ethiopian heritage goods, custom printing and embroidery.</p>
-            ${b.serviceArea ? `<p>${esc(b.serviceArea)}</p>` : ""}
+            <p style="margin-top:14px">Custom printing, embroidery and Ethiopian heritage clothing.</p>
           </div>
           <div>
             <h4>Make something</h4>
@@ -71,12 +69,13 @@
               <li><a href="mailto:${esc(b.email)}">${esc(b.email)}</a></li>
               ${b.phone ? `<li><a href="tel:${esc(b.phone.replace(/[^\d+]/g, ""))}">${esc(b.phone)}</a></li>` : ""}
               ${social.map((s) => `<li><a href="${esc(s[1])}" rel="noopener" target="_blank">${s[0]}</a></li>`).join("")}
-              <li><a href="${esc(C.stores.amazon)}" rel="noopener" target="_blank">Addis Loom on Amazon</a></li>
-              <li><a href="${esc(C.stores.walmart)}" rel="noopener" target="_blank">Addis Loom on Walmart</a></li>
             </ul>
           </div>
         </div>
-        <div class="foot-legal">© ${new Date().getFullYear()} Addis Loom. All rights reserved.</div>
+        <div class="foot-legal">
+          <span>© ${new Date().getFullYear()} Addis Loom. All rights reserved.</span>
+          ${b.serviceArea ? `<span class="foot-area">${esc(b.serviceArea)}${b.phone ? ` &nbsp;|&nbsp; <a href="tel:${esc(b.phone.replace(/[^\d+]/g, ""))}">${esc(b.phone)}</a>` : ""}</span>` : ""}
+        </div>
       </div>`;
   }
 
@@ -229,6 +228,15 @@
       { text: "Class of 2026", font: "Source Sans 3", weight: 700, size: 26, color: "#B3302A", x: 250, y: 372, max: 200 }],
       stripe: { x: 250, y: 410, n: 11, d: 7 } }
   };
+  /* Simple garment previews for the "What we decorate" section */
+  Object.assign(IDEAS, {
+    "cat-tee": { garment: "tee", color: "#FFFFFF", items: [{ text: "Your design", size: 34, color: "#2C5F2D", x: 250, y: 200, max: 160 }], stripe: { x: 250, y: 236 } },
+    "cat-hoodie": { garment: "hoodie", color: "#22304A", items: [{ text: "RVA", size: 54, color: "#FCDC04", x: 250, y: 225, max: 150 }] },
+    "cat-crew": { garment: "crew", color: "#B9BDB8", items: [{ text: "Class of 2027", size: 30, color: "#B3302A", x: 250, y: 195, max: 160 }], stripe: { x: 250, y: 230, n: 7, d: 6 } },
+    "cat-polo": { garment: "polo", color: "#2C5F2D", items: [{ text: "Logo", size: 18, color: "#FCDC04", x: 318, y: 178, max: 70, stitch: true }] },
+    "cat-cap": { garment: "cap", color: "#1E1E1E", items: [{ text: "YOUR NAME", size: 28, color: "#FFFFFF", x: 250, y: 245, max: 140, stitch: true }] },
+    "cat-tote": { garment: "tote", color: "#EFE7D6", items: [{ text: "Hello", font: "Playfair Display", weight: 700, size: 60, color: "#B3302A", x: 250, y: 320, max: 240 }], stripe: { x: 250, y: 380, n: 11, d: 7 } }
+  });
   function paintIdeas(root = document) {
     const run = () => root.querySelectorAll("canvas[data-idea]").forEach((c) => {
       const spec = IDEAS[c.dataset.idea]; if (spec) drawMockup(c, spec);
@@ -278,6 +286,7 @@
   window.Addis = { config: C, money, esc, drawGarment, AREAS, isDark, drawMockup, paintIdeas, renderWork, renderReviews };
   renderWork(document.querySelector("[data-work]"), +(document.querySelector("[data-work]")?.dataset.work || 6));
   renderReviews(document.querySelector("[data-reviews]"));
+  paintIdeas(document);
 
   /* ---------------- Quote / contact forms ---------------- */
   async function sendRequest(payload, statusEl, opts = {}) {
