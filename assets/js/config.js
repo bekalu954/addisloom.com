@@ -94,5 +94,17 @@ window.ADDIS_CONFIG = {
       note: "Clay coffee pot and cups for buna ceremony.", amazon: "", walmart: "", checkout: "" },
     { name: "Tibeb pattern tote", category: "accessories", price: "$24", image: "",
       note: "Made in our shop — tibeb border print.", amazon: "", walmart: "", checkout: "" }
-  ]
+  ],
+
+  /* ---------- Customer reviews ----------
+     Only add real reviews from real customers (with their permission).
+     The reviews section stays hidden until at least one is listed here.
+     Example: { quote: "They had our choir shirts ready in a week.", name: "Hana T.", detail: "Church choir order" } */
+  reviews: [],
+
+  /* ---------- Your work ----------
+     Photos of finished orders. Put images in assets/img/work/ and list them here.
+     Until you add some, the site shows example design ideas instead.
+     Example: { image: "assets/img/work/choir-tees.jpg", title: "Choir tees", caption: "40 printed tees, front and back" } */
+  gallery: []
 };

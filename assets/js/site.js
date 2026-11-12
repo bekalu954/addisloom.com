@@ -8,9 +8,11 @@
   /* ---------------- Header & footer ---------------- */
   const page = document.body.dataset.page || "";
   const links = [
+    ["services", "services.html", "Services"],
     ["design", "design.html", "Design studio"],
     ["embroidery", "embroidery.html", "Embroidery"],
     ["shop", "shop.html", "Heritage shop"],
+    ["about", "about.html", "About"],
     ["contact", "contact.html", "Bulk orders"]
   ];
   const header = $("#site-header");
@@ -54,9 +56,11 @@
           <div>
             <h4>Make something</h4>
             <ul>
+              <li><a href="services.html">Services</a></li>
               <li><a href="design.html">Design studio</a></li>
               <li><a href="embroidery.html">Embroidery &amp; logos</a></li>
               <li><a href="contact.html">Bulk &amp; group orders</a></li>
+              <li><a href="about.html">About Addis Loom</a></li>
             </ul>
           </div>
           <div>
@@ -170,7 +174,108 @@
     ctx.restore();
   }
 
-  window.Addis = { config: C, money, esc, drawGarment, AREAS, isDark };
+  /* Draw a finished mockup: garment + text lines + optional tibeb stripe.
+     spec = { garment, color, items: [{ text, font, color, x, y, max }], stripe: { x, y } } */
+  function drawMockup(canvas, spec) {
+    const ctx = canvas.getContext("2d");
+    const s = canvas.width / 500;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.setTransform(s, 0, 0, s, 0, 0);
+    drawGarment(ctx, spec.garment, spec.color, "front");
+    for (const it of spec.items || []) {
+      let size = it.size;
+      const font = () => `${it.weight || 800} ${size}px "${it.font || "Bricolage Grotesque"}", sans-serif`;
+      ctx.font = font();
+      while (it.max && ctx.measureText(it.text).width > it.max && size > 8) { size -= 1; ctx.font = font(); }
+      ctx.fillStyle = it.color; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      if (it.stitch) { ctx.shadowColor = "rgba(0,0,0,.35)"; ctx.shadowOffsetY = 1; ctx.shadowBlur = 1.2; }
+      ctx.fillText(it.text, it.x, it.y);
+      ctx.shadowColor = "transparent";
+    }
+    if (spec.stripe) {
+      const { x, y, n = 9, d = 7 } = spec.stripe;
+      for (let i = 0; i < n; i++) {
+        ctx.fillStyle = ["#B3302A", "#FCDC04", "#2C5F2D"][i % 3];
+        const cx = x - ((n - 1) * d * 2.2) / 2 + i * d * 2.2;
+        ctx.beginPath(); ctx.moveTo(cx, y); ctx.lineTo(cx + d, y + d); ctx.lineTo(cx, y + 2 * d); ctx.lineTo(cx - d, y + d); ctx.closePath(); ctx.fill();
+      }
+    }
+  }
+
+  /* Example designs shown until real project photos are added in config.js */
+  const IDEAS = {
+    choir: { garment: "tee", color: "#FFFFFF", items: [
+      { text: "St. Mary Choir", size: 34, color: "#2C5F2D", x: 250, y: 185, max: 165 },
+      { text: "መዘምራን", font: "Noto Sans Ethiopic", weight: 700, size: 30, color: "#B3302A", x: 250, y: 232, max: 160 }],
+      stripe: { x: 250, y: 262 } },
+    polo: { garment: "polo", color: "#1E1E1E", items: [
+      { text: "Buna House", size: 15, color: "#FCDC04", x: 318, y: 172, max: 70, stitch: true },
+      { text: "café & kitchen", font: "Source Sans 3", weight: 600, size: 9, color: "#FFFFFF", x: 318, y: 188, max: 70, stitch: true }] },
+    reunion: { garment: "hoodie", color: "#2C5F2D", items: [
+      { text: "Tesfaye Family", size: 30, color: "#FCDC04", x: 250, y: 205, max: 155 },
+      { text: "Reunion 2027", font: "Source Sans 3", weight: 700, size: 22, color: "#FFFFFF", x: 250, y: 245, max: 150 }],
+      stripe: { x: 250, y: 272, n: 7, d: 6 } },
+    team: { garment: "tee", color: "#B3302A", items: [
+      { text: "LIONS FC", size: 38, color: "#FCDC04", x: 250, y: 175, max: 165 },
+      { text: "10", size: 110, color: "#FFFFFF", x: 250, y: 285, max: 165 }] },
+    cap: { garment: "cap", color: "#22304A", items: [
+      { text: "Addis", size: 34, color: "#FCDC04", x: 250, y: 238, max: 140, stitch: true },
+      { text: "est. today", font: "Source Sans 3", weight: 700, size: 15, color: "#FFFFFF", x: 250, y: 272, max: 120, stitch: true }] },
+    tote: { garment: "tote", color: "#EFE7D6", items: [
+      { text: "Selam", font: "Playfair Display", weight: 700, size: 58, color: "#2C5F2D", x: 250, y: 310, max: 240 },
+      { text: "ሰላም", font: "Noto Sans Ethiopic", weight: 700, size: 34, color: "#B3302A", x: 250, y: 375, max: 200 }],
+      stripe: { x: 250, y: 410, n: 11, d: 7 } }
+  };
+  function paintIdeas(root = document) {
+    const run = () => root.querySelectorAll("canvas[data-idea]").forEach((c) => {
+      const spec = IDEAS[c.dataset.idea]; if (spec) drawMockup(c, spec);
+    });
+    run();
+    if (document.fonts) { document.fonts.ready.then(run); document.fonts.addEventListener("loadingdone", run); }
+  }
+
+  const IDEA_CARDS = [
+    ["choir", "Church choir tees", "Full-color print, English and Ge'ez lettering"],
+    ["polo", "Restaurant staff polos", "Embroidered left-chest logo"],
+    ["reunion", "Family reunion hoodies", "Printed front, names on the back"],
+    ["team", "Team jerseys", "Team name with player numbers"],
+    ["cap", "Embroidered caps", "Front logo, any thread color"],
+    ["tote", "Gift totes", "Personal names with a tibeb border"]
+  ];
+
+  /* Fills a .work-grid with real project photos, or example ideas if none yet. */
+  function renderWork(el, limit = 6) {
+    if (!el) return;
+    const real = (C.gallery || []).filter((g) => g.image);
+    const head = document.getElementById(el.dataset.headId || "");
+    if (real.length) {
+      if (head) head.textContent = "Recent orders";
+      el.innerHTML = real.slice(0, limit).map((g) => `<figure class="work-card">
+        <div class="work-media"><img src="${esc(g.image)}" alt="${esc(g.title || "Finished order")}" loading="lazy"></div>
+        <figcaption><strong>${esc(g.title || "")}</strong>${g.caption ? `<span>${esc(g.caption)}</span>` : ""}</figcaption></figure>`).join("");
+    } else {
+      el.innerHTML = IDEA_CARDS.slice(0, limit).map(([k, t, c]) => `<figure class="work-card">
+        <div class="work-media"><canvas data-idea="${k}" width="500" height="560" role="img" aria-label="Example design: ${esc(t)}"></canvas></div>
+        <figcaption><strong>${esc(t)}</strong><span>${esc(c)}</span></figcaption></figure>`).join("");
+      paintIdeas(el);
+    }
+  }
+
+  /* Fills a reviews block, or hides its section when there are none. */
+  function renderReviews(el) {
+    if (!el) return;
+    const list = (C.reviews || []).filter((r) => r.quote);
+    const section = el.closest("[data-reviews-section]");
+    if (!list.length) { if (section) section.hidden = true; return; }
+    el.innerHTML = list.map((r) => `<blockquote class="review">
+      <p>${esc(r.quote)}</p>
+      <footer><strong>${esc(r.name || "Customer")}</strong>${r.detail ? `<span>${esc(r.detail)}</span>` : ""}</footer></blockquote>`).join("");
+  }
+
+  window.Addis = { config: C, money, esc, drawGarment, AREAS, isDark, drawMockup, paintIdeas, renderWork, renderReviews };
+  renderWork(document.querySelector("[data-work]"), +(document.querySelector("[data-work]")?.dataset.work || 6));
+  renderReviews(document.querySelector("[data-reviews]"));
 
   /* ---------------- Quote / contact forms ---------------- */
   async function sendRequest(payload, statusEl, opts = {}) {
