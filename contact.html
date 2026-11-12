@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulk &amp; group orders | Addis Loom</title>
+  <meta name="description" content="Custom shirts, hoodies and embroidered gear for churches, weddings, reunions, businesses and teams. Request a bulk quote from Addis Loom.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Noto+Sans+Ethiopic:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="contact">
+  <header id="site-header"></header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <h1>Bulk and group orders</h1>
+        <p class="lede">Matching shirts for a church event, staff polos, a family reunion or a team. Tell us about it and we'll come back with a price, a proof and a timeline.</p>
+        <div class="tiers" id="tiers"></div>
+      </div>
+    </section>
+
+    <div class="tibeb thin" aria-hidden="true"></div>
+
+    <section class="section">
+      <div class="wrap split" style="align-items:start">
+        <form data-request="Bulk order request" novalidate>
+          <div class="form-grid">
+            <div class="field"><label for="cName">Name</label><input id="cName" name="name" type="text" required autocomplete="name"></div>
+            <div class="field"><label for="cEmail">Email</label><input id="cEmail" name="email" type="email" required autocomplete="email"></div>
+            <div class="field"><label for="cOrg">Group or business (optional)</label><input id="cOrg" name="organization" type="text" autocomplete="organization"></div>
+            <div class="field"><label for="cPhone">Phone (optional)</label><input id="cPhone" name="phone" type="tel" autocomplete="tel"></div>
+            <fieldset class="field full">
+              <legend>What's it for?</legend>
+              <div class="radio-cards">
+                <label><input type="radio" name="occasion" value="Church or choir" required> Church or choir</label>
+                <label><input type="radio" name="occasion" value="Wedding or reunion"> Wedding or reunion</label>
+                <label><input type="radio" name="occasion" value="Business uniforms"> Business uniforms</label>
+                <label><input type="radio" name="occasion" value="Team or club"> Team or club</label>
+                <label><input type="radio" name="occasion" value="Other"> Something else</label>
+              </div>
+            </fieldset>
+            <fieldset class="field full">
+              <legend>Printing or embroidery?</legend>
+              <div class="radio-cards">
+                <label><input type="radio" name="method" value="Printing" required> Printing</label>
+                <label><input type="radio" name="method" value="Embroidery"> Embroidery</label>
+                <label><input type="radio" name="method" value="Not sure"> Not sure yet</label>
+              </div>
+            </fieldset>
+            <div class="field"><label for="cQty">About how many pieces?</label><input id="cQty" name="quantity" type="number" min="1" required></div>
+            <div class="field"><label for="cDate">Event or deadline date</label><input id="cDate" name="needed_by" type="date"></div>
+            <div class="field full"><label for="cItems">Items, colors and sizes</label><textarea id="cItems" name="details" placeholder="e.g. 40 white T-shirts, mixed sizes S–2XL, gold print on front, names on back"></textarea></div>
+            <div class="field full"><label for="cLink">Link to artwork (optional)</label><input id="cLink" name="artwork_link" type="text" placeholder="https://"></div>
+          </div>
+          <button class="btn gold" type="submit" style="margin-top:18px">Send bulk request</button>
+          <div class="form-status" role="status"></div>
+        </form>
+
+        <aside>
+          <h2 style="font-size:1.5rem">What happens next</h2>
+          <ul class="check-list">
+            <li>We reply within one business day with questions or a price.</li>
+            <li>You get a digital proof showing every placement and color.</li>
+            <li>Once you approve, we send an invoice you can pay online.</li>
+            <li id="turnLine"></li>
+          </ul>
+          <p>Prefer email? Write to <a data-email href="#"></a>.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+    (function () {
+      const { config: C } = window.Addis;
+      document.getElementById("tiers").innerHTML = C.quantityDiscounts.map((d) => `<span class="tier">${d.min}+ pieces: ${Math.round(d.off * 100)}% off</span>`).join("");
+      document.getElementById("turnLine").textContent = "Production takes " + C.turnaround + ". " + C.rushNote;
+      const item = new URLSearchParams(location.search).get("item");
+      if (item) document.getElementById("cItems").value = "I'm interested in: " + item;
+    })();
+  </script>
+</body>
+</html>
