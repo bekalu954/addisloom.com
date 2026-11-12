@@ -69,8 +69,8 @@
       const { config: C, esc } = window.Addis;
       const labels = { all: "Everything", clothing: "Clothing", home: "Home & coffee", accessories: "Accessories", custom: "Made in our shop" };
       C.products = C.products.filter((p) => !["home", "accessories"].includes(p.category));
-      const cats = ["all", ...new Set(C.products.map((p) => p.category))];
-      let current = "all";
+      const cats = [...new Set(C.products.map((p) => p.category))];
+      let current = cats[0];
       const f = document.getElementById("filters");
       f.innerHTML = cats.map((c) => `<button class="chip" type="button" data-cat="${c}" aria-pressed="${c === current}">${labels[c] || c}</button>`).join("");
       f.addEventListener("click", (e) => {
