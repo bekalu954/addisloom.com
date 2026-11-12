@@ -40,7 +40,7 @@
           <div>
             <h2>Full-color printing</h2>
             <p class="sub">Photos, gradients and many-color logos, sharp on any shirt color.</p>
-            <p>We use direct-to-film (DTF) transfers, which print every color in one pass and press onto cotton, polyester and blends. There's no setup charge, so a single shirt costs the same per piece as ten.</p>
+            <p>We use direct-to-film (DTF) transfers, which print every color in one pass and press onto cotton, polyester and blends. There's no screen setup, so it works just as well for one shirt as for fifty.</p>
             <div class="meta">
               <div><h3>Good for</h3><ul><li>Photos and detailed artwork</li><li>Names and numbers on each shirt</li><li>Small runs and one-offs</li></ul></div>
               <div><h3>Works on</h3><ul><li>T-shirts and crewnecks</li><li>Hoodies and jackets</li><li>Tote bags</li></ul></div>
@@ -55,7 +55,7 @@
           <div>
             <h2>Embroidery</h2>
             <p class="sub">Stitched logos and names that look sharp for years.</p>
-            <p>We turn your logo into a stitch file, match your colors to thread, and embroider it onto polos, caps, jackets and bags. Once your logo is digitized, reorders are quick and there's no setup fee again.</p>
+            <p>We turn your logo into a stitch file, match your colors to thread, and embroider it onto polos, caps, jackets and bags. Once your logo is digitized, we keep it on file so reorders are quick.</p>
             <div class="meta">
               <div><h3>Good for</h3><ul><li>Business and church logos</li><li>Names and monograms</li><li>Caps and outerwear</li></ul></div>
               <div><h3>Placements</h3><ul><li>Left or right chest</li><li>Cap front, side or back</li><li>Sleeve and full back</li></ul></div>
@@ -73,7 +73,7 @@
             <p>Pick the garments and colors once and we keep your logo, thread colors and placements on file. When you hire someone new, order one more in their size without starting over.</p>
             <div class="meta">
               <div><h3>Popular items</h3><ul><li>Polos and button-downs</li><li>Caps and beanies</li><li>Aprons and jackets</li></ul></div>
-              <div><h3>What you get</h3><ul><li>Your logo kept on file</li><li>Same look on every reorder</li><li>Quantity pricing from 12 pieces</li></ul></div>
+              <div><h3>What you get</h3><ul><li>Your logo kept on file</li><li>Same look on every reorder</li><li>Lower prices on larger orders</li></ul></div>
             </div>
             <a class="btn" href="contact.html">Request a uniform quote</a>
           </div>
@@ -87,7 +87,7 @@
             <p>Send us the event, the date and a rough headcount. We'll suggest garments, lay out your text, and give you a simple size sheet to collect from your group.</p>
             <div class="meta">
               <div><h3>Good for</h3><ul><li>Holidays and church events</li><li>Choir and youth programs</li><li>Weddings and family reunions</li></ul></div>
-              <div><h3>What you get</h3><ul><li>Help with wording and layout</li><li>A size sheet for your group</li><li>Discounts from 12 pieces</li></ul></div>
+              <div><h3>What you get</h3><ul><li>Help with wording and layout</li><li>A size sheet for your group</li><li>Lower prices on larger orders</li></ul></div>
             </div>
             <a class="btn" href="contact.html">Plan a group order</a>
           </div>
@@ -148,8 +148,10 @@
       const g = C.garments, m = C.methods;
       const minPrint = Math.min(...Object.values(g).filter((x) => x.printOk !== false).map((x) => x.base)) + m.print.perSide;
       const minEmb = Math.min(...Object.values(g).filter((x) => x.embroideryOk).map((x) => x.base)) + m.embroidery.perLocation;
-      document.querySelector('[data-from="print"]').textContent = "From " + money(minPrint) + " a piece";
-      document.querySelector('[data-from="emb"]').textContent = "From " + money(minEmb) + " a piece";
+      if (C.showPrices) {
+        document.querySelector('[data-from="print"]').textContent = "From " + money(minPrint) + " a piece";
+        document.querySelector('[data-from="emb"]').textContent = "From " + money(minEmb) + " a piece";
+      }
       paintIdeas();
     })();
   </script>

@@ -142,8 +142,13 @@
     (function () {
       const { config: C, money } = window.Addis;
       const e = C.methods.embroidery;
+      if (!C.showPrices) {
+        document.getElementById("embPrice").textContent = "Pricing depends on the garment, the size of your design and the number of placements. Every quote is free.";
+        document.getElementById("embSetup").textContent = "New logos are digitized once and kept on file, so reorders are quick.";
+      } else {
       document.getElementById("embPrice").textContent = `Each stitched spot is ${money(e.perLocation)} per piece on top of the garment, with up to about 8,000 stitches included (a typical left-chest logo).`;
       document.getElementById("embSetup").textContent = `New designs have a one-time ${money(e.setup)} digitizing fee. Reorders of the same design skip it.`;
+      }
       document.getElementById("embTurn").textContent = "Usually " + C.turnaround + ".";
     })();
   </script>

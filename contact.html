@@ -81,7 +81,7 @@
   <script>
     (function () {
       const { config: C } = window.Addis;
-      document.getElementById("tiers").innerHTML = C.quantityDiscounts.map((d) => `<span class="tier">${d.min}+ pieces: ${Math.round(d.off * 100)}% off</span>`).join("");
+      if (C.showPrices) document.getElementById("tiers").innerHTML = C.quantityDiscounts.map((d) => `<span class="tier">${d.min}+ pieces: ${Math.round(d.off * 100)}% off</span>`).join("");
       document.getElementById("turnLine").textContent = "Production takes " + C.turnaround + ". " + C.rushNote;
       const item = new URLSearchParams(location.search).get("item");
       if (item) document.getElementById("cItems").value = "I'm interested in: " + item;

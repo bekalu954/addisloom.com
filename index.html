@@ -117,7 +117,7 @@
         </div>
         <ol class="steps">
           <li><h3>Design it</h3><p>Build your design in the studio, or send us your artwork and an idea.</p></li>
-          <li><h3>Approve the proof</h3><p>We email a mockup and final price. Nothing is made until you say yes.</p></li>
+          <li><h3>Approve your quote</h3><p>We email a mockup and a price for your order. Nothing is made until you say yes.</p></li>
           <li><h3>We make it</h3><p>Printed or embroidered in our shop. <span id="turnaround"></span>.</p></li>
           <li><h3>Pick up or ship</h3><p>Collect your order locally or have it shipped to your door.</p></li>
         </ol>
@@ -127,12 +127,13 @@
     <section class="section mist">
       <div class="wrap split" style="align-items:start">
         <div>
-          <h2>Straightforward pricing</h2>
-          <p>The garment price plus a charge for each printed side or embroidered spot. Bigger orders cost less per piece.</p>
+          <h2 id="priceHead">Straightforward pricing</h2>
+          <p id="priceIntro">The garment price plus a charge for each printed side or embroidered spot. Bigger orders cost less per piece.</p>
           <div class="tiers" id="tiers"></div>
           <p class="muted" style="margin-top:18px" id="pricingNotes"></p>
+          <a class="btn" id="quoteBtn" href="contact.html" hidden>Request a free quote</a>
         </div>
-        <div class="table-scroll">
+        <div class="table-scroll" id="priceBox">
           <table class="price-table" id="priceTable">
             <thead><tr><th>Item</th><th>Garment</th><th>+ Print per side</th><th>+ Embroidery per spot</th></tr></thead>
             <tbody></tbody>
@@ -170,7 +171,8 @@
           <details><summary>Is there a minimum order?</summary><p>No. Printed items can be ordered one at a time. Embroidery is also available from one piece; a one-time digitizing fee applies to each new design.</p></details>
           <details><summary>What kind of artwork should I send?</summary><p>A high-resolution PNG, PDF, SVG or AI file works best. A phone photo of a sketch is fine for a starting point — we'll clean it up and send a proof.</p></details>
           <details><summary>What areas do you serve?</summary><p>We're based in Chesterfield County and serve customers across Richmond, Midlothian and the surrounding area. Orders can also be shipped.</p></details>
-          <details><summary>How do I pay?</summary><p>After you approve your proof, we send a secure invoice that you can pay online by card.</p></details>
+          <details><summary>How much does it cost?</summary><p>It depends on the garment, the number of pieces, and how many colors and placements your design has. Send your design or idea and we'll reply with a free quote within one business day. Larger orders cost less per piece.</p></details>
+          <details><summary>How do I pay?</summary><p>After you approve your quote and proof, we send a secure invoice that you can pay online by card.</p></details>
           <details><summary>How long does it take?</summary><p id="faqTurn"></p></details>
         </div>
       </div>
@@ -200,15 +202,25 @@
     const g = C.garments, m = C.methods;
     const minPrint = Math.min(...Object.values(g).filter((x) => x.printOk !== false).map((x) => x.base)) + m.print.perSide;
     const minEmb = Math.min(...Object.values(g).filter((x) => x.embroideryOk).map((x) => x.base)) + m.embroidery.perLocation;
-    document.getElementById("fromPrint").textContent = "From " + money(minPrint) + " a piece";
-    document.getElementById("fromEmb").textContent = "From " + money(minEmb) + " a piece";
+    const priced = C.showPrices;
+    document.getElementById("fromPrint").textContent = priced ? "From " + money(minPrint) + " a piece" : "Free quote, no minimum";
+    document.getElementById("fromEmb").textContent = priced ? "From " + money(minEmb) + " a piece" : "Free quote, no minimum";
     document.getElementById("turnaround").textContent = C.turnaround.charAt(0).toUpperCase() + C.turnaround.slice(1);
     document.getElementById("faqTurn").textContent = "Usually " + C.turnaround + ". " + C.rushNote;
 
+    if (!priced) {
+      document.getElementById("priceHead").textContent = "Pricing built around your order";
+      document.getElementById("priceIntro").textContent = "Every order is different, so we quote each one. Your price depends on the garment, how many pieces you need, and how many colors and placements your design has. Larger orders cost less per piece.";
+      document.getElementById("pricingNotes").textContent = "Send your design or idea and you'll have a free quote within one business day.";
+      document.getElementById("priceBox").innerHTML = `<ul class="check-list" style="font-size:1.05rem">
+        <li>Free quotes, no obligation</li><li>No minimum order</li><li>Lower prices on larger orders</li><li>A mockup to approve before anything is made</li></ul>`;
+      document.getElementById("quoteBtn").hidden = false;
+    } else {
     const tbody = document.querySelector("#priceTable tbody");
     tbody.innerHTML = Object.values(g).map((x) => `<tr><td>${x.label}</td><td class="num">${money(x.base)}</td><td class="num">${x.printOk === false ? "—" : money(m.print.perSide)}</td><td class="num">${x.embroideryOk ? money(m.embroidery.perLocation) : "—"}</td></tr>`).join("");
     document.getElementById("tiers").innerHTML = C.quantityDiscounts.map((d) => `<span class="tier">${d.min}+ pieces: ${Math.round(d.off * 100)}% off</span>`).join("");
     document.getElementById("pricingNotes").textContent = `Sizes 2XL and up add ${money(C.plusSizeUpcharge)}. Embroidery has a one-time ${money(m.embroidery.setup)} digitizing fee per new design.`;
+    }
 
     // Hero try-on
     const cv = document.getElementById("heroShirt"), ctx = cv.getContext("2d");

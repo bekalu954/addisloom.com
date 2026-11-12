@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Design Studio | Custom Shirts, Hoodies &amp; Caps | Addis Loom, Chesterfield VA</title>
-  <meta name="description" content="Design your own T-shirt, hoodie, polo, cap or tote. Add your text, upload a logo or photo, choose printing or embroidery and get a price instantly.">
+  <meta name="description" content="Design your own T-shirt, hoodie, polo, cap or tote. Add your text, upload a logo or photo, choose printing or embroidery and request a free quote.">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
     <section class="page-hero" style="padding-bottom:28px">
       <div class="wrap">
         <h1>Design studio</h1>
-        <p class="lede">Pick a garment, add your text or artwork, and see the price as you go. When it looks right, send it to us and we'll email a proof.</p>
+        <p class="lede">Pick a garment, add your text or artwork, and choose your sizes. When it looks right, send it to us for a free quote and proof.</p>
       </div>
     </section>
 
@@ -108,16 +108,16 @@
 
           <div class="panel">
             <div class="estimate" aria-live="polite">
-              <div>Estimated total</div>
+              <div id="estLabel">Estimated total</div>
               <div class="total" id="estTotal">$0.00</div>
               <div id="estEach"></div>
               <dl id="estLines"></dl>
             </div>
-            <p class="muted" style="margin-top:10px">Final price is confirmed on your proof. Shipping is added at invoice.</p>
+            <p class="muted" style="margin-top:10px" id="estNote">Final price is confirmed on your proof. Shipping is added at invoice.</p>
           </div>
 
           <div class="panel">
-            <h2>Send for a proof</h2>
+            <h2>Request a free quote</h2>
             <form id="orderForm" novalidate>
               <div class="form-grid">
                 <div class="field"><label for="oName">Name</label><input id="oName" name="name" type="text" required autocomplete="name"></div>
@@ -127,7 +127,7 @@
                 <div class="field full"><label for="oNotes">Anything we should know?</label><textarea id="oNotes" name="notes" placeholder="Placement, thread colors, names per shirt, delivery or pickup…"></textarea></div>
               </div>
               <p class="muted" style="margin-top:12px">If you uploaded an image, we'll reply asking for the original file so it prints sharp.</p>
-              <button class="btn gold" type="submit" style="margin-top:6px">Send design for a proof</button>
+              <button class="btn gold" type="submit" style="margin-top:6px">Request my free quote</button>
               <div class="form-status" role="status"></div>
             </form>
           </div>
