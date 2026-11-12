@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Addis Loom — Ethiopian heritage &amp; custom apparel</title>
+  <meta name="description" content="Addis Loom brings Ethiopian heritage goods to customers online and makes custom printed and embroidered apparel for families, churches, businesses and teams.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Noto+Sans+Ethiopic:wght@500;700&family=Source+Sans+3:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="about">
+  <header id="site-header"></header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap split">
+        <div>
+          <h1>Heritage you can wear, made for the people you wear it with</h1>
+          <p class="lede">Addis Loom began by bringing Ethiopian heritage clothing and goods to customers through Amazon and Walmart. Now we also make custom printed and embroidered apparel, so a family, a church or a small business can wear something that's truly theirs.</p>
+        </div>
+        <div class="work-media"><canvas data-idea="choir" width="500" height="560" role="img" aria-label="Example: choir T-shirt with English and Ge'ez lettering"></canvas></div>
+      </div>
+    </section>
+
+    <div class="tibeb" aria-hidden="true"></div>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head"><h2>Where the name comes from</h2></div>
+        <div class="name-meaning">
+          <div>
+            <div class="word">Addis<span class="geez">አዲስ</span></div>
+            <p>Amharic for "new," as in Addis Ababa, the "new flower." It stands for what we make: something new, built on something old.</p>
+          </div>
+          <div>
+            <div class="word">Loom</div>
+            <p>The frame weavers use to make shema, the hand-woven cotton behind the habesha kemis and netela, finished with a colorful tibeb border. That border runs through our whole site.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section mist">
+      <div class="wrap">
+        <div class="section-head"><h2>What we care about</h2></div>
+        <div class="groups">
+          <div><h3>Bringing people together</h3><p>Matching shirts at a reunion, a choir in the same color on a holy day, a team that looks like a team. Apparel is how a group shows it belongs together.</p></div>
+          <div><h3>Getting the details right</h3><p>Names spelled correctly, Ge'ez letters set properly, colors that match your logo. You approve a proof before anything is made.</p></div>
+          <div><h3>Fair, clear prices</h3><p>Our prices are published on the site, and the design studio shows your total as you build. No surprises at the end.</p></div>
+          <div><h3>Honoring the culture</h3><p>Our heritage collection celebrates Ethiopian craft, and we bring the same respect to every design we print or stitch.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section forest" data-reviews-section>
+      <div class="wrap">
+        <div class="section-head"><h2>What customers say</h2></div>
+        <div class="reviews" data-reviews></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap split" style="align-items:start">
+        <div>
+          <h2>Get in touch</h2>
+          <p>Questions about an order, a group project or an item in our collection? We reply within one business day.</p>
+        </div>
+        <ul class="check-list" id="contactList"></ul>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap">
+        <div>
+          <h2>Let's make something together</h2>
+          <p>Start with a design of your own, or tell us about your group.</p>
+        </div>
+        <div class="actions">
+          <a class="btn" href="design.html">Start a design</a>
+          <a class="btn ghost" href="contact.html">Plan a group order</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script>
+    (function () {
+      const { config: C, esc, paintIdeas } = window.Addis;
+      const b = C.business, items = [];
+      items.push(`Email: <a href="mailto:${esc(b.email)}">${esc(b.email)}</a>`);
+      if (b.phone) items.push(`Phone: <a href="tel:${esc(b.phone.replace(/[^\d+]/g, ""))}">${esc(b.phone)}</a>`);
+      if (b.serviceArea) items.push(esc(b.serviceArea));
+      if (b.instagram) items.push(`Instagram: <a href="${esc(b.instagram)}" target="_blank" rel="noopener">follow our work</a>`);
+      items.push(`Shop the heritage collection on <a href="${esc(C.stores.amazon)}" target="_blank" rel="noopener">Amazon</a> and <a href="${esc(C.stores.walmart)}" target="_blank" rel="noopener">Walmart</a>`);
+      document.getElementById("contactList").innerHTML = items.map((i) => `<li>${i}</li>`).join("");
+      paintIdeas();
+    })();
+  </script>
+</body>
+</html>

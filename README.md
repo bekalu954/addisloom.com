@@ -7,6 +7,8 @@ Plain HTML/CSS/JS, no build step. Hosted on GitHub Pages with the domain on Clou
 | File | What it is |
 |---|---|
 | `index.html` | Home: live T-shirt try-on, services, how ordering works, pricing, FAQ |
+| `services.html` | Every service: printing, embroidery, uniforms, church & event orders, gifts, design help |
+| `about.html` | Story, meaning of the name, values, reviews, contact |
 | `design.html` | Design studio: pick a garment and color, add text (incl. Amharic) or upload a logo, drag to place, choose print or embroidery, enter sizes, see a live price, send for a proof |
 | `embroidery.html` | Embroidery services and quote form |
 | `shop.html` | Heritage collection with category filters and Amazon / Walmart / Buy now buttons |
@@ -17,6 +19,9 @@ Plain HTML/CSS/JS, no build step. Hosted on GitHub Pages with the domain on Clou
 Everything lives in **`assets/js/config.js`**: business email and phone, store links,
 garment prices, decoration prices, quantity discounts, turnaround time, and the product list.
 Every page updates automatically.
+
+Reviews and photos of finished work also live in config.js (`reviews` and `gallery`). The reviews
+section stays hidden until you add a real review; the gallery shows example designs until you add photos.
 
 Product photos: put them in `assets/img/products/` and set `image: "assets/img/products/kemis.jpg"`.
 
