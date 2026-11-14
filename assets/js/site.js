@@ -23,7 +23,7 @@
     header.innerHTML = `
       <a class="skip" href="#main">Skip to content</a>
       <div class="wrap bar">
-        <a class="brand" href="index.html" aria-label="Addis Loom home">
+        <a class="brand" href="/" aria-label="Addis Loom home">
           <img src="logo.svg" alt="" width="46" height="37">
           <span class="brand-name">Addis Loom<small>Custom Apparel &amp; Embroidery</small></span>
         </a>
