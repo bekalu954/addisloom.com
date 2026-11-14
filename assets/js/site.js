@@ -207,6 +207,9 @@
 
   /* Example designs shown until real project photos are added in config.js */
   const IDEAS = {
+    habesha: { garment: "tee", color: "#FFFFFF", items: [
+      { text: "✝", font: "Source Sans 3", weight: 700, size: 30, color: "#2C5F2D", x: 250, y: 200, max: 60, stitch: true }],
+      stripe: { x: 250, y: 150, n: 7, d: 6 } },
     choir: { garment: "tee", color: "#FFFFFF", items: [
       { text: "St. Mary Choir", size: 34, color: "#2C5F2D", x: 250, y: 185, max: 165 },
       { text: "Christmas Concert 2026", font: "Source Sans 3", weight: 700, size: 20, color: "#B3302A", x: 250, y: 228, max: 160 }],
