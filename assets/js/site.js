@@ -12,7 +12,9 @@
     ["design", "design.html", "Design studio"],
     ["embroidery", "embroidery.html", "Embroidery"],
     ["about", "about.html", "About"],
-    ["contact", "contact.html", "Bulk orders"]
+    ["contact", "contact.html", "Bulk orders"],
+    // Customer sign-in: Stripe customer portal (invoices, receipts, saved cards)
+    ["signin", "https://billing.stripe.com/p/login/cNiaEX9mq7lvgcl8T6ffy00", "Sign in"]
   ];
   const header = $("#site-header");
   const b0 = C.business;
