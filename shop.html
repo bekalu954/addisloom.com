@@ -2,100 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Heritage collection — Ethiopian clothing | Addis Loom</title>
-  <meta name="description" content="Shop Ethiopian heritage clothing from Addis Loom: habesha kemis, netela shawls and men's habesha shirts.">
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
-  <style>
-    .ph { width: 100%; height: 100%; display: grid; place-items: center; background:
-      linear-gradient(135deg, rgba(179,48,42,.9) 25%, transparent 25%) -15px 0 / 30px 30px,
-      linear-gradient(225deg, rgba(179,48,42,.9) 25%, transparent 25%) -15px 0 / 30px 30px,
-      linear-gradient(315deg, #FCDC04 25%, transparent 25%) 0 0 / 30px 30px,
-      linear-gradient(45deg, #FCDC04 25%, transparent 25%) 0 0 / 30px 30px, #2C5F2D; }
-    .ph span { background: #fff; color: #1B2A1C; font: 800 1.05rem "Bricolage Grotesque", sans-serif; padding: 10px 16px; border-radius: 6px; max-width: 80%; text-align: center; }
-    .stores { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
-    .btn.amazon { background: #FF9900; border-color: #FF9900; color: #1B2A1C; }
-    .btn.amazon:hover { background: #E68A00; border-color: #E68A00; color: #1B2A1C; }
-    .btn.walmart { background: #0071CE; border-color: #0071CE; }
-    .btn.walmart:hover { background: #005CA8; border-color: #005CA8; }
-  </style>
+  <title>Traditional clothing embroidery | Addis Loom</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://addisloom.com/embroidery.html#traditional">
+  <meta http-equiv="refresh" content="0; url=embroidery.html#traditional">
+  <script>location.replace("embroidery.html#traditional");</script>
 </head>
-<body data-page="shop">
-  <header id="site-header"></header>
-
-  <main id="main">
-    <section class="page-hero">
-      <div class="wrap">
-        <h1>Heritage collection</h1>
-        <p class="lede">Traditional Ethiopian clothing and hand-woven textiles.</p>
-      </div>
-    </section>
-
-    <section style="padding-bottom:88px">
-      <div class="wrap">
-        <div class="filters" role="group" aria-label="Filter by category" id="filters"></div>
-        <div class="products" id="products"></div>
-        <p class="muted" id="emptyMsg" hidden>No items in this category yet.</p>
-      </div>
-    </section>
-
-    <div class="tibeb" aria-hidden="true"></div>
-
-    <section class="section mist">
-      <div class="wrap split">
-        <div>
-          <h2>Want it personalized?</h2>
-          <p>Add a name, a date or your church or family name to a tote, netela or shirt. We'll embroider or print it for you.</p>
-        </div>
-        <div><a class="btn" href="design.html">Open the design studio</a></div>
-      </div>
-    </section>
-  </main>
-
-  <footer id="site-footer"></footer>
-
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/site.js"></script>
-  <script>
-    (function () {
-      const { config: C, esc } = window.Addis;
-      const labels = { all: "Everything", clothing: "Clothing", home: "Home & coffee", accessories: "Accessories", custom: "Made in our shop" };
-      C.products = C.products.filter((p) => !["home", "accessories"].includes(p.category));
-      const cats = [...new Set(C.products.map((p) => p.category))];
-      let current = cats[0];
-      const f = document.getElementById("filters");
-      f.innerHTML = cats.map((c) => `<button class="chip" type="button" data-cat="${c}" aria-pressed="${c === current}">${labels[c] || c}</button>`).join("");
-      f.addEventListener("click", (e) => {
-        if (!e.target.dataset.cat) return;
-        current = e.target.dataset.cat;
-        f.querySelectorAll(".chip").forEach((b) => b.setAttribute("aria-pressed", b.dataset.cat === current));
-        draw();
-      });
-      function draw() {
-        const list = C.products.filter((p) => current === "all" || p.category === current);
-        document.getElementById("emptyMsg").hidden = list.length > 0;
-        document.getElementById("products").innerHTML = list.map((p) => {
-          const buttons = [
-            p.checkout && `<a class="btn small" href="${esc(p.checkout)}" target="_blank" rel="noopener">Buy now</a>`,
-            p.amazon && `<a class="btn small ghost" href="${esc(p.amazon)}" target="_blank" rel="noopener">Amazon</a>`,
-            p.walmart && `<a class="btn small ghost" href="${esc(p.walmart)}" target="_blank" rel="noopener">Walmart</a>`
-          ].filter(Boolean);
-          if (!buttons.length) buttons.push(`<a class="btn small ghost" href="contact.html?item=${encodeURIComponent(p.name)}">Ask about this item</a>`);
-          return `<article class="product">
-            <div class="thumb">${p.image ? `<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">` : `<div class="ph"><span>${esc(p.name)}</span></div>`}</div>
-            <h3>${esc(p.name)}</h3>
-            ${p.note ? `<p class="muted" style="margin-bottom:6px">${esc(p.note)}</p>` : ""}
-            ${p.price ? `<div class="price">${esc(p.price)}</div>` : ""}
-            <div class="buy">${buttons.join("")}</div>
-          </article>`;
-        }).join("");
-      }
-      draw();
-    })();
-  </script>
+<body>
+  <p>This page has moved. <a href="embroidery.html#traditional">See custom embroidery for traditional Ethiopian clothing</a>.</p>
 </body>
 </html>
