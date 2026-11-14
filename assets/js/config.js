@@ -10,7 +10,7 @@ window.ADDIS_CONFIG = {
     name: "Addis Loom",
     email: "orders@addisloom.com",          // set up free on Cloudflare: Email > Email Routing
     phone: "(804) 601-0445",
-    serviceArea: "Serving Chesterfield County, Richmond and Midlothian, VA",
+    serviceArea: "",
     instagram: "",                           // full URL, or "" to hide
     tiktok: "",
     facebook: ""
