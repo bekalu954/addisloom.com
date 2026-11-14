@@ -11,7 +11,6 @@
     ["services", "services.html", "Services"],
     ["design", "design.html", "Design studio"],
     ["embroidery", "embroidery.html", "Embroidery"],
-    ["shop", "shop.html", "Heritage shop"],
     ["about", "about.html", "About"],
     ["contact", "contact.html", "Bulk orders"]
   ];
