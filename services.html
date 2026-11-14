@@ -10,6 +10,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Source+Sans+3:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    /* Keep a section title clear of the sticky header when jumped to */
+    .service { scroll-margin-top: 110px; }
+  </style>
 </head>
 <body data-page="services">
   <header id="site-header"></header>
@@ -23,7 +27,7 @@
           <a class="chip" href="#printing">Full-color printing</a>
           <a class="chip" href="#embroidery">Embroidery</a>
           <a class="chip" href="#business">Business uniforms</a>
-          <a class="chip" href="#groups">Church &amp; event orders</a>
+          <a class="chip" href="#groups">Event orders</a>
           <a class="chip" href="#gifts">Personalized gifts</a>
           <a class="chip" href="#design-help">Design help</a>
         </nav>
@@ -154,6 +158,24 @@
       }
       paintIdeas();
     })();
+  </script>
+  <script>
+    // Service buttons: scroll so the chosen section's title is visible and the section sits centered below the header
+    document.querySelectorAll('.service-jump a[href^="#"]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        var header = document.getElementById('site-header');
+        var headerH = header ? header.getBoundingClientRect().height : 0;
+        var space = window.innerHeight - headerH;
+        var rect = target.getBoundingClientRect();
+        var offset = rect.height < space ? (space - rect.height) / 2 : 24;
+        var top = window.pageYOffset + rect.top - headerH - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        history.replaceState(null, '', link.getAttribute('href'));
+      });
+    });
   </script>
 </body>
 </html>
