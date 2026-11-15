@@ -60,6 +60,14 @@
       write([...read(), item]);
       return item.id;
     },
+    get: (id) => read().find((i) => i.id === id) || null,
+    async update(id, item, art) {
+      if (!read().some((i) => i.id === id)) return this.add(item, art);
+      item.id = id;
+      await idb("readwrite", (s) => s.put(art, id));
+      write(read().map((i) => (i.id === id ? item : i)));
+      return id;
+    },
     async remove(id) {
       write(read().filter((i) => i.id !== id));
       await idb("readwrite", (s) => s.delete(id)).catch(() => {});
