@@ -9,10 +9,9 @@
   const page = document.body.dataset.page || "";
   const links = [
     ["services", "services.html", "Services"],
-    ["design", "design.html", "Design studio"],
     ["embroidery", "embroidery.html", "Embroidery"],
-    ["about", "about.html", "About"],
-    ["contact", "contact.html", "Bulk orders"]
+    ["contact", "contact.html", "Bulk orders"],
+    ["about", "about.html", "About"]
   ];
   const cartCount = () => { try { return (JSON.parse(localStorage.getItem("al_cart_v1")) || []).length; } catch (e) { return 0; } };
   const header = $("#site-header");
