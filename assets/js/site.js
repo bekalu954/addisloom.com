@@ -16,6 +16,7 @@
     // Customer sign-in: Stripe customer portal (invoices, receipts, saved cards)
     ["signin", "https://billing.stripe.com/p/login/cNiaEX9mq7lvgcl8T6ffy00", "Sign in"]
   ];
+  const cartCount = () => { try { return (JSON.parse(localStorage.getItem("al_cart_v1")) || []).length; } catch (e) { return 0; } };
   const header = $("#site-header");
   const b0 = C.business;
   if (header) {
@@ -30,6 +31,7 @@
         <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
         <nav class="nav" id="primary-nav" aria-label="Main">
           ${links.map(([k, href, label]) => `<a href="${href}"${k === page ? ' aria-current="page"' : ""}>${label}</a>`).join("")}
+          ${C.cartOn ? `<a class="cart-link" href="cart.html" aria-label="Cart"${page === "cart" ? ' aria-current="page"' : ""}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21.5 7H6"/></svg><span class="nav-cart-text">Cart</span><span class="cart-count" data-cart-count${cartCount() ? "" : " hidden"}>${cartCount()}</span></a>` : ""}
           <a class="btn small gold" href="design.html">Start a design</a>
         </nav>
       </div>
