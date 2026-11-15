@@ -31,7 +31,7 @@ window.ADDIS_CONFIG = {
      endpoint: the address of your checkout Worker on Cloudflare.          */
   checkout: {
     enabled: false,
-    endpoint: ""
+    endpoint: "https://addisloom-checkout.bekaluabate.workers.dev"
   },
 
   /* Your marketplace storefronts. Replace with your real seller/store links. */
