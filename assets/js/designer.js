@@ -344,6 +344,43 @@
     render(false);
     return url;
   }
+  // Editable copy of the design, saved with the cart item so it can be reopened.
+  function serializeDesign() {
+    const out = {};
+    ["front", "back"].forEach((s) => {
+      out[s] = state.layers[s].map((l) => l.type === "text"
+        ? { type: "text", text: l.text, font: l.font, color: l.color, size: l.size, scale: l.scale, x: l.x, y: l.y }
+        : { type: "image", name: l.name, src: l.img.src, w: l.w, h: l.h, scale: l.scale, x: l.x, y: l.y });
+    });
+    return out;
+  }
+  function loadImage(src) {
+    return new Promise((resolve) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = () => resolve(null); img.src = src; });
+  }
+  // Opening design.html?edit=<cart item id> restores that item for editing.
+  let editId = null;
+  async function loadFromCart(id) {
+    const it = window.AddisCart && AddisCart.get(id);
+    if (!it) return false;
+    const art = (await AddisCart.art(id).catch(() => null)) || {};
+    if (C.garments[it.garment]) state.garment = it.garment;
+    if (C.colors.some((c) => c.hex === it.color)) state.color = it.color;
+    if (C.methods[it.method]) state.method = it.method;
+    state.qty = { ...(it.qty || {}) };
+    const d = art.design;
+    if (d) {
+      for (const s of ["front", "back"]) {
+        state.layers[s] = [];
+        for (const l of d[s] || []) {
+          if (l.type === "text") state.layers[s].push({ ...l, id: ++uid, inkSet: true });
+          else { const img = await loadImage(l.src); if (img) state.layers[s].push({ id: ++uid, type: "image", name: l.name, img, w: l.w, h: l.h, scale: l.scale, x: l.x, y: l.y }); }
+        }
+      }
+    }
+    editId = id;
+    return { hasDesign: !!d };
+  }
+
   if (C.cartOn && window.AddisCart) {
     $("#cartPanel").hidden = false;
     $("#quoteHeading").textContent = "Prefer a quote first?";
@@ -362,17 +399,24 @@
         ["front", "back"].forEach((s) => state.layers[s].forEach((l) => {
           if (l.type === "image" && !uploads.find((u) => u.dataUrl === l.img.src)) uploads.push({ name: l.name, dataUrl: l.img.src });
         }));
-        const art = { mockups: {}, uploads };
+        const art = { mockups: {}, uploads, design: serializeDesign() };
         if (front) art.mockups.front = mockup("front");
         if (back) art.mockups.back = mockup("back");
-        await AddisCart.add({
+        const item = {
           garment: state.garment, color: state.color,
           colorName: (C.colors.find((c) => c.hex === state.color) || {}).name || "",
           method: state.method, front, back, qty,
           frontDesc: describeSide("front"), backDesc: describeSide("back")
-        }, art);
-        status.className = "form-status ok";
-        status.innerHTML = `Added to your cart. <a href="cart.html">View cart and check out</a>, or keep designing.`;
+        };
+        if (editId) {
+          await AddisCart.update(editId, item, art);
+          status.className = "form-status ok";
+          status.innerHTML = `Your cart is updated. <a href="cart.html">Back to cart</a>`;
+        } else {
+          await AddisCart.add(item, art);
+          status.className = "form-status ok";
+          status.innerHTML = `Added to your cart. <a href="cart.html">View cart and check out</a>, or keep designing.`;
+        }
       } catch (err) {
         status.className = "form-status err";
         status.textContent = "Couldn't add this to your cart. Your browser may be in private mode or out of storage space.";
@@ -393,12 +437,23 @@
   }
 
   /* ---------------- Init ---------------- */
-  buildGarments(); buildColors(); buildMethods(); buildQty(); autoInk(); refreshLayers();
-  if (params.get("text")) { $("#textInput").value = params.get("text"); }
-  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
-    if (params.get("text")) addText(params.get("text"));
+  async function init() {
+    let edit = null;
+    if (params.get("edit") && C.cartOn && window.AddisCart) edit = await loadFromCart(params.get("edit"));
+    buildGarments(); buildColors(); buildMethods(); buildQty(); autoInk(); refreshLayers();
+    if (edit) {
+      $("#addToCart").textContent = "Update cart item";
+      $("#cartStatus").className = "form-status";
+      $("#cartStatus").innerHTML = edit.hasDesign
+        ? `You're editing a design from your cart. Make your changes, then click <strong>Update cart item</strong>.`
+        : `You're editing a cart item. Its size, color and quantity are loaded. Add your text or images again, then click <strong>Update cart item</strong>.`;
+    } else if (params.get("text")) { $("#textInput").value = params.get("text"); }
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+      if (!edit && params.get("text")) addText(params.get("text"));
+      render(); price();
+    });
+    if (document.fonts) document.fonts.addEventListener("loadingdone", () => render());
     render(); price();
-  });
-  if (document.fonts) document.fonts.addEventListener("loadingdone", () => render());
-  render(); price();
+  }
+  init();
 })();
