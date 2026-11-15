@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank you for your order | Addis Loom</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="order-complete">
+  <header id="site-header"></header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <h1>Thank you for your order</h1>
+        <p class="lede">Your payment went through, and Stripe has emailed you a receipt.</p>
+      </div>
+    </section>
+    <div class="tibeb thin" aria-hidden="true"></div>
+    <section class="section">
+      <div class="wrap" style="max-width:760px">
+        <h2>What happens next</h2>
+        <ul class="check-list">
+          <li>Within one business day, we email you a proof of each design.</li>
+          <li>Reply with any changes. Revisions are free.</li>
+          <li id="turnLine">Once you approve the proof, we make your order.</li>
+          <li>Changed your mind before production? We refund you in full.</li>
+        </ul>
+        <p style="margin-top:24px">Questions? Email <a data-email></a> or call <a id="phoneLink"></a>.</p>
+        <a class="btn" href="design.html" style="margin-top:12px">Start another design</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script>
+    (function () {
+      const C = window.ADDIS_CONFIG;
+      if (new URLSearchParams(location.search).get("session_id")) window.AddisCart.clear();
+      document.getElementById("turnLine").textContent = "Once you approve the proof, production takes " + C.turnaround.replace(/ after you approve the proof$/, "") + ".";
+      const ph = document.getElementById("phoneLink");
+      ph.textContent = C.business.phone; ph.href = "tel:" + C.business.phone.replace(/[^\d+]/g, "");
+    })();
+  </script>
+</body>
+</html>
