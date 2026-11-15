@@ -18,6 +18,13 @@
     .cart-edit-title { color: inherit; text-decoration: none; }
     .cart-edit-title:hover { text-decoration: underline; }
     .cart-item .cart-edit-link { display: inline-block; margin-right: 14px; color: var(--forest); }
+    .qty-steps { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 8px 0 4px; }
+    .qty-step { display: inline-flex; align-items: center; gap: 6px; }
+    .qty-size { font-weight: 600; color: var(--ink); min-width: 2.2em; font-size: .95rem; }
+    .qty-step button { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--forest); background: #fff; color: var(--forest); font-size: 1.1rem; font-weight: 700; line-height: 1; cursor: pointer; display: inline-grid; place-items: center; padding: 0; }
+    .qty-step button:hover:not([disabled]) { background: var(--forest); color: #fff; }
+    .qty-step button[disabled] { opacity: .35; cursor: not-allowed; }
+    .qty-n { min-width: 1.8em; text-align: center; font-weight: 700; color: var(--ink); }
   </style>
 </head>
 <body data-page="cart">
@@ -116,7 +123,14 @@
         const g = C.garments[it.garment] || { label: it.garment };
         const m = C.methods[it.method] || { label: it.method };
         const p = Cart.priceItem(it);
-        const sizes = Object.entries(it.qty).map(([s, n]) => (s === "ONE" ? `Quantity ${n}` : `${s} × ${n}`)).join(", ");
+        const total = Object.values(it.qty).reduce((a, n) => a + (n || 0), 0);
+        const steppers = Object.entries(it.qty).map(([s, n]) => `
+              <div class="qty-step">
+                <span class="qty-size">${s === "ONE" ? "Quantity" : esc(s)}</span>
+                <button type="button" data-step="-1" data-size="${esc(s)}" aria-label="One fewer${s === "ONE" ? "" : " " + esc(s)}"${total <= 1 ? " disabled" : ""}>&minus;</button>
+                <span class="qty-n" aria-live="polite">${n}</span>
+                <button type="button" data-step="1" data-size="${esc(s)}" aria-label="One more${s === "ONE" ? "" : " " + esc(s)}"${n >= 5000 ? " disabled" : ""}>+</button>
+              </div>`).join("");
         const where = it.front && it.back ? "Front and back" : it.front ? "Front" : "Back";
         const editUrl = "design.html?edit=" + encodeURIComponent(it.id);
         return `<li class="cart-item" data-id="${esc(it.id)}">
@@ -124,7 +138,8 @@
           <div>
             <h3><a class="cart-edit-title" href="${editUrl}">${esc(g.label)} × ${p.count}</a></h3>
             <p class="meta-line">${esc(it.colorName)} · ${esc(m.label)} · ${where}</p>
-            <p class="meta-line">${esc(sizes)}</p>
+            <div class="qty-steps">${steppers}
+            </div>
             ${p.off ? `<p class="meta-line">${Math.round(p.off * 100)}% quantity discount applied</p>` : ""}
             ${p.setup ? `<p class="meta-line">Includes ${money(p.setup)} one-time digitizing</p>` : ""}
             <a class="linkish cart-edit-link" href="${editUrl}">Edit</a>
@@ -157,6 +172,20 @@
     }
 
     $("#cartItems").addEventListener("click", async (e) => {
+      const step = e.target.closest("[data-step]");
+      if (step) {
+        const id = step.closest(".cart-item").dataset.id;
+        const it = Cart.list().find((i) => i.id === id);
+        if (!it) return;
+        const qty = { ...it.qty }, size = step.dataset.size;
+        const total = Object.values(qty).reduce((a, n) => a + (n || 0), 0);
+        const next = (qty[size] || 0) + Number(step.dataset.step);
+        if (next > 5000 || (next < (qty[size] || 0) && total <= 1)) return;
+        if (next <= 0) delete qty[size]; else qty[size] = next;
+        Cart.setQty(id, qty);
+        draw();
+        return;
+      }
       if (!e.target.matches("[data-remove]")) return;
       await Cart.remove(e.target.closest(".cart-item").dataset.id);
       draw();
