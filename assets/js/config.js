@@ -54,12 +54,8 @@ window.ADDIS_CONFIG = {
      amazon / walmart: direct product links (or "" to hide that button)
      checkout: a Stripe Payment Link or similar (or "" to hide)          */
   products: [
-    { name: "Habesha kemis — tibeb border", category: "clothing", price: "", image: "",
-      note: "Hand-woven cotton dress with traditional border.", amazon: "", walmart: "", checkout: "" },
     { name: "Netela shawl", category: "clothing", price: "", image: "",
       note: "Lightweight gauze shawl with woven edge.", amazon: "", walmart: "", checkout: "" },
-    { name: "Men's habesha shirt", category: "clothing", price: "", image: "",
-      note: "Cotton shirt with embroidered placket.", amazon: "", walmart: "", checkout: "" },
     { name: "Mesob basket", category: "home", price: "", image: "",
       note: "Woven serving basket.", amazon: "", walmart: "", checkout: "" },
     { name: "Jebena coffee set", category: "home", price: "", image: "",
