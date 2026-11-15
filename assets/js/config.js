@@ -48,22 +48,6 @@ window.ADDIS_CONFIG = {
   turnaround: "7–10 business days after you approve the proof",
   rushNote: "Need it sooner? Rush orders are often possible — ask in your request.",
 
-  /* ---------- Heritage collection ----------
-     category: "clothing" | "home" | "accessories" | "custom"
-     image: path to a photo in assets/img/products/ ("" shows a pattern)
-     amazon / walmart: direct product links (or "" to hide that button)
-     checkout: a Stripe Payment Link or similar (or "" to hide)          */
-  products: [
-    { name: "Netela shawl", category: "clothing", price: "", image: "",
-      note: "Lightweight gauze shawl with woven edge.", amazon: "", walmart: "", checkout: "" },
-    { name: "Mesob basket", category: "home", price: "", image: "",
-      note: "Woven serving basket.", amazon: "", walmart: "", checkout: "" },
-    { name: "Jebena coffee set", category: "home", price: "", image: "",
-      note: "Clay coffee pot and cups for the traditional coffee ceremony.", amazon: "", walmart: "", checkout: "" },
-    { name: "Tibeb pattern tote", category: "accessories", price: "$24", image: "",
-      note: "Made in our shop — tibeb border print.", amazon: "", walmart: "", checkout: "" }
-  ],
-
   /* ---------- Customer reviews ----------
      Only add real reviews from real customers (with their permission).
      The reviews section stays hidden until at least one is listed here.
