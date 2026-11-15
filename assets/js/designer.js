@@ -333,6 +333,54 @@
     btn.disabled = false;
   });
 
+  /* ---------------- Add to cart ---------------- */
+  function describeSide(s) {
+    return state.layers[s].map((l) => l.type === "text"
+      ? `text "${l.text}" (${l.font.match(/"(.+)"/)[1]}, ${l.color})` : `image "${l.name}"`).join("; ");
+  }
+  function mockup(side) {
+    render(true, side);
+    const url = cv.toDataURL("image/jpeg", 0.85);
+    render(false);
+    return url;
+  }
+  if (C.cartOn && window.AddisCart) {
+    $("#cartPanel").hidden = false;
+    $("#quoteHeading").textContent = "Prefer a quote first?";
+    $("#estNote").textContent = "Shipping and sales tax are added at checkout.";
+    $("#addToCart").addEventListener("click", async () => {
+      const status = $("#cartStatus"), btn = $("#addToCart");
+      const p = calc();
+      if (!p.count) { status.className = "form-status err"; status.textContent = "Add at least one piece under Quantity first."; return; }
+      if (!p.sides) { status.className = "form-status err"; status.textContent = "Add text or an image to the front or back first."; return; }
+      btn.disabled = true;
+      try {
+        const qty = {};
+        for (const [s, n] of Object.entries(C.garments[state.garment].oneSize ? { ONE: state.qty.ONE || 0 } : state.qty)) if (n > 0) qty[s] = n;
+        const front = state.layers.front.length > 0, back = state.layers.back.length > 0;
+        const uploads = [];
+        ["front", "back"].forEach((s) => state.layers[s].forEach((l) => {
+          if (l.type === "image" && !uploads.find((u) => u.dataUrl === l.img.src)) uploads.push({ name: l.name, dataUrl: l.img.src });
+        }));
+        const art = { mockups: {}, uploads };
+        if (front) art.mockups.front = mockup("front");
+        if (back) art.mockups.back = mockup("back");
+        await AddisCart.add({
+          garment: state.garment, color: state.color,
+          colorName: (C.colors.find((c) => c.hex === state.color) || {}).name || "",
+          method: state.method, front, back, qty,
+          frontDesc: describeSide("front"), backDesc: describeSide("back")
+        }, art);
+        status.className = "form-status ok";
+        status.innerHTML = `Added to your cart. <a href="cart.html">View cart and check out</a>, or keep designing.`;
+      } catch (err) {
+        status.className = "form-status err";
+        status.textContent = "Couldn't add this to your cart. Your browser may be in private mode or out of storage space.";
+      }
+      btn.disabled = false;
+    });
+  }
+
   // Keep the default text color readable on the chosen garment until the customer picks their own.
   let inkTouched = false;
   $("#textColor").addEventListener("input", () => { inkTouched = true; });
