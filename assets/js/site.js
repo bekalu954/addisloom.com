@@ -12,9 +12,7 @@
     ["design", "design.html", "Design studio"],
     ["embroidery", "embroidery.html", "Embroidery"],
     ["about", "about.html", "About"],
-    ["contact", "contact.html", "Bulk orders"],
-    // Customer sign-in: Stripe customer portal (invoices, receipts, saved cards)
-    ["signin", "https://billing.stripe.com/p/login/cNiaEX9mq7lvgcl8T6ffy00", "Sign in"]
+    ["contact", "contact.html", "Bulk orders"]
   ];
   const cartCount = () => { try { return (JSON.parse(localStorage.getItem("al_cart_v1")) || []).length; } catch (e) { return 0; } };
   const header = $("#site-header");
@@ -72,6 +70,7 @@
               <li><a href="mailto:${esc(b.email)}">${esc(b.email)}</a></li>
               ${b.phone ? `<li><a href="tel:${esc(b.phone.replace(/[^\d+]/g, ""))}">${esc(b.phone)}</a></li>` : ""}
               ${social.map((s) => `<li><a href="${esc(s[1])}" rel="noopener" target="_blank">${s[0]}</a></li>`).join("")}
+              <li><a href="https://billing.stripe.com/p/login/cNiaEX9mq7lvgcl8T6ffy00" rel="noopener">Order receipts</a></li>
             </ul>
           </div>
         </div>
