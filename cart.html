@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your cart | Addis Loom</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="cart">
+  <header id="site-header"></header>
+
+  <main id="main">
+    <section class="page-hero" style="padding-bottom:28px">
+      <div class="wrap">
+        <h1>Your cart</h1>
+        <p class="lede" id="cartLede">Check your designs, choose pickup or shipping, then pay securely by card.</p>
+      </div>
+    </section>
+
+    <section style="padding-bottom:88px">
+      <div class="wrap">
+        <div id="cartEmpty" hidden>
+          <p>Your cart is empty.</p>
+          <a class="btn" href="design.html">Start a design</a>
+        </div>
+        <div id="cartOff" hidden>
+          <p>Online ordering isn't open yet. Design your shirt and request a free quote instead.</p>
+          <a class="btn" href="design.html">Open the design studio</a>
+        </div>
+
+        <div class="cart-layout" id="cartFull" hidden>
+          <ul class="cart-items" id="cartItems"></ul>
+
+          <aside class="cart-summary">
+            <div class="estimate">
+              <div>Order total before tax</div>
+              <div class="total" id="sumTotal">$0.00</div>
+              <dl id="sumLines"></dl>
+            </div>
+
+            <form id="checkoutForm" novalidate style="margin-top:20px">
+              <fieldset class="field" style="border:0;padding:0;margin:0">
+                <legend>Pickup or shipping</legend>
+                <div class="radio-cards" id="deliveryPick"></div>
+              </fieldset>
+              <div class="field" style="margin-top:16px">
+                <label for="neededBy">Need it by (optional)</label>
+                <input id="neededBy" type="date">
+              </div>
+              <div class="field" style="margin-top:16px">
+                <label for="cartNotes">Notes for us (optional)</label>
+                <textarea id="cartNotes" maxlength="2000" placeholder="Thread colors, names per shirt, placement…"></textarea>
+              </div>
+
+              <div class="policy">
+                <strong>How it works</strong>
+                <ul>
+                  <li>You pay now. We email you a proof before anything is made.</li>
+                  <li>Revisions to the proof are free.</li>
+                  <li>Cancel any time before production for a full refund.</li>
+                  <li id="turnLine"></li>
+                </ul>
+              </div>
+
+              <button class="btn gold" type="submit" id="checkoutBtn" style="margin-top:18px;width:100%">Check out securely</button>
+              <p class="muted" style="margin-top:10px">Payment is handled by Stripe. Card details never touch our website. Sales tax is added at checkout.</p>
+              <div class="form-status" role="status" id="checkoutStatus"></div>
+            </form>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/site.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script>
+  (function () {
+    const { config: C, money, esc } = window.Addis;
+    const Cart = window.AddisCart;
+    const $ = (s) => document.querySelector(s);
+
+    if (!C.cartOn) { $("#cartOff").hidden = false; $("#cartLede").hidden = true; return; }
+    $("#turnLine").textContent = "Production takes " + C.turnaround + ".";
+
+    const ship = C.shipping || {};
+    $("#deliveryPick").innerHTML = `
+      <label><input type="radio" name="delivery" value="pickup" checked> ${esc(ship.pickupLabel || "Local pickup")}</label>
+      <label><input type="radio" name="delivery" value="ship"> ${esc(ship.flatLabel || "Shipping")}: ${money(ship.flatRate || 0)}</label>`;
+    $("#deliveryPick").addEventListener("change", summary);
+
+    const thumbs = {};
+    async function draw() {
+      const items = Cart.list();
+      $("#cartEmpty").hidden = items.length > 0;
+      $("#cartFull").hidden = !items.length;
+      if (!items.length) return;
+      $("#cartItems").innerHTML = items.map((it) => {
+        const g = C.garments[it.garment] || { label: it.garment };
+        const m = C.methods[it.method] || { label: it.method };
+        const p = Cart.priceItem(it);
+        const sizes = Object.entries(it.qty).map(([s, n]) => (s === "ONE" ? `Quantity ${n}` : `${s} × ${n}`)).join(", ");
+        const where = it.front && it.back ? "Front and back" : it.front ? "Front" : "Back";
+        return `<li class="cart-item" data-id="${esc(it.id)}">
+          <div class="cart-thumbs" data-thumbs></div>
+          <div>
+            <h3>${esc(g.label)} × ${p.count}</h3>
+            <p class="meta-line">${esc(it.colorName)} · ${esc(m.label)} · ${where}</p>
+            <p class="meta-line">${esc(sizes)}</p>
+            ${p.off ? `<p class="meta-line">${Math.round(p.off * 100)}% quantity discount applied</p>` : ""}
+            ${p.setup ? `<p class="meta-line">Includes ${money(p.setup)} one-time digitizing</p>` : ""}
+            <button class="linkish" type="button" data-remove>Remove</button>
+          </div>
+          <div class="price">${money(p.total)}</div>
+        </li>`;
+      }).join("");
+      for (const li of document.querySelectorAll(".cart-item")) {
+        const id = li.dataset.id;
+        if (!thumbs[id]) thumbs[id] = await Cart.art(id).catch(() => null);
+        const a = thumbs[id];
+        if (a && a.mockups) li.querySelector("[data-thumbs]").innerHTML =
+          ["front", "back"].filter((s) => a.mockups[s]).map((s) => `<img src="${a.mockups[s]}" alt="${s} of the design">`).join("");
+      }
+      summary();
+    }
+
+    function summary() {
+      const items = Cart.list();
+      let goods = 0, setup = 0;
+      items.forEach((it) => { const p = Cart.priceItem(it); goods += p.line; setup += p.setup; });
+      const shipping = document.querySelector("input[name=delivery]:checked").value === "ship" ? (ship.flatRate || 0) : 0;
+      const lines = [[`Items (${items.length} design${items.length > 1 ? "s" : ""})`, money(goods)]];
+      if (setup) lines.push(["Digitizing", money(setup)]);
+      lines.push([shipping ? "Shipping" : "Pickup", shipping ? money(shipping) : "Free"]);
+      lines.push(["Sales tax", "At checkout"]);
+      $("#sumLines").innerHTML = lines.map(([a, b]) => `<dt>${esc(a)}</dt><dd>${esc(b)}</dd>`).join("");
+      $("#sumTotal").textContent = money(goods + setup + shipping);
+    }
+
+    $("#cartItems").addEventListener("click", async (e) => {
+      if (!e.target.matches("[data-remove]")) return;
+      await Cart.remove(e.target.closest(".cart-item").dataset.id);
+      draw();
+    });
+
+    $("#checkoutForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const status = $("#checkoutStatus"), btn = $("#checkoutBtn");
+      if (!C.checkout.endpoint) { status.className = "form-status err"; status.textContent = "Checkout isn't connected yet. Please request a quote from the design studio."; return; }
+      btn.disabled = true; btn.textContent = "Uploading your designs…";
+      status.className = "form-status"; status.textContent = "";
+      try {
+        const items = [];
+        for (const it of Cart.list()) {
+          const a = (await Cart.art(it.id)) || {};
+          items.push({ garment: it.garment, color: it.color, method: it.method, front: it.front, back: it.back, qty: it.qty,
+            frontDesc: it.frontDesc, backDesc: it.backDesc, mockups: a.mockups || {}, uploads: a.uploads || [] });
+        }
+        const res = await fetch(C.checkout.endpoint.replace(/\/$/, "") + "/checkout", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ items, delivery: document.querySelector("input[name=delivery]:checked").value,
+            neededBy: $("#neededBy").value, notes: $("#cartNotes").value })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.url) throw new Error(data.error || "Checkout didn't start. Please try again.");
+        btn.textContent = "Opening secure checkout…";
+        location.href = data.url;
+      } catch (err) {
+        status.className = "form-status err";
+        status.innerHTML = `${esc(err.message || "Checkout didn't start.")} You can also email us at <a href="mailto:${esc(C.business.email)}">${esc(C.business.email)}</a>.`;
+        btn.disabled = false; btn.textContent = "Check out securely";
+      }
+    });
+
+    draw();
+  })();
+  </script>
+</body>
+</html>
