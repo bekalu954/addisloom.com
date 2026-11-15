@@ -54,7 +54,7 @@
         <div class="foot-grid">
           <div>
             <img src="logo.svg" alt="Addis Loom" width="90" style="filter:brightness(1.6)">
-            <p style="margin-top:14px">Custom printing, embroidery and Ethiopian heritage clothing.</p>
+            <p style="margin-top:14px">Custom printing and embroidery.</p>
           </div>
           <div>
             <h4>Make something</h4>
