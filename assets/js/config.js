@@ -22,6 +22,18 @@ window.ADDIS_CONFIG = {
      its endpoint here, e.g. "https://formspree.io/f/abcdwxyz". */
   formEndpoint: "",
 
+  /* ---------- Online cart & checkout ----------
+     enabled:  false = quote-only site. true = customers add designs to a cart
+               and pay by card at checkout (prices are then shown everywhere).
+               To try the cart before turning it on for everyone, open
+               https://addisloom.com/design.html?cart=preview
+               (and ?cart=off to leave preview).
+     endpoint: the address of your checkout Worker on Cloudflare.          */
+  checkout: {
+    enabled: false,
+    endpoint: ""
+  },
+
   /* Your marketplace storefronts. Replace with your real seller/store links. */
   stores: {
     amazon: "https://www.amazon.com/",
@@ -29,54 +41,9 @@ window.ADDIS_CONFIG = {
   },
 
   /* Show prices on the site?  false = quote-only (no prices anywhere; customers
-     request a free quote).  true = show the prices below in the pricing table,
-     design studio and service pages. */
+     request a free quote).  true = show the prices in the pricing table,
+     design studio and service pages. (Always on when the cart is enabled.) */
   showPrices: false,
-
-  /* ---------- Custom apparel pricing (US dollars) — used only if showPrices is true ---------- */
-  garments: {
-    tee:    { label: "T-shirt",          base: 14, embroideryOk: true  },
-    hoodie: { label: "Hoodie",           base: 32, embroideryOk: true  },
-    polo:   { label: "Polo",             base: 24, embroideryOk: true  },
-    crew:   { label: "Crewneck sweatshirt", base: 26, embroideryOk: true },
-    cap:    { label: "Cap",              base: 16, embroideryOk: true, printOk: false, oneSize: true },
-    tote:   { label: "Tote bag",         base: 12, embroideryOk: true, oneSize: true }
-  },
-
-  colors: [
-    { name: "White",        hex: "#FFFFFF" },
-    { name: "Black",        hex: "#1E1E1E" },
-    { name: "Forest green", hex: "#2C5F2D" },
-    { name: "Gold",         hex: "#F4CF2A" },
-    { name: "Red",          hex: "#B3302A" },
-    { name: "Navy",         hex: "#22304A" },
-    { name: "Heather grey", hex: "#B9BDB8" },
-    { name: "Natural",      hex: "#EFE7D6" }
-  ],
-
-  sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
-  plusSizeUpcharge: 3,          // added per item for 2XL and up
-
-  methods: {
-    print: {
-      label: "Full-color print (DTF)",
-      perSide: 7,               // per decorated side, per item
-      setup: 0
-    },
-    embroidery: {
-      label: "Embroidery",
-      perLocation: 9,           // per stitched location, per item (up to ~8,000 stitches)
-      setup: 35                 // one-time digitizing fee per new design
-    }
-  },
-
-  /* Quantity discounts applied to the per-item price. */
-  quantityDiscounts: [
-    { min: 12,  off: 0.10 },
-    { min: 24,  off: 0.15 },
-    { min: 48,  off: 0.20 },
-    { min: 100, off: 0.25 }
-  ],
 
   turnaround: "7–10 business days after you approve the proof",
   rushNote: "Need it sooner? Rush orders are often possible — ask in your request.",
@@ -113,3 +80,70 @@ window.ADDIS_CONFIG = {
      Example: { image: "assets/img/work/choir-tees.jpg", title: "Choir tees", caption: "40 printed tees, front and back" } */
   gallery: []
 };
+
+/* =====================================================================
+   PRICES (US dollars)
+   The checkout reads this exact block to charge customers, so it is the
+   one place prices live. Rules for editing it:
+     • change numbers and labels only; keep every "quote", comma and brace
+     • no comments inside the block, and no comma after the last item in a list
+   What each part means:
+     garments.base        price of the blank garment
+     garments.printOk / embroideryOk   which decoration methods are offered
+     garments.oneSize     sold without sizes (caps, totes)
+     plusSizeUpcharge     added per item for 2XL and up
+     methods.print.perSide           per decorated side, per item
+     methods.embroidery.perLocation  per stitched location, per item (up to ~8,000 stitches)
+     methods.embroidery.setup        one-time digitizing fee per decorated location
+     quantityDiscounts    off = share taken off garment + decoration (0.10 = 10%)
+     shipping.flatRate    flat shipping charge per order; pickup is free
+   ===================================================================== */
+window.ADDIS_PRICING = /*PRICING-START*/{
+  "garments": {
+    "tee":    { "label": "T-shirt",             "base": 14, "embroideryOk": true },
+    "hoodie": { "label": "Hoodie",              "base": 32, "embroideryOk": true },
+    "polo":   { "label": "Polo",                "base": 24, "embroideryOk": true },
+    "crew":   { "label": "Crewneck sweatshirt", "base": 26, "embroideryOk": true },
+    "cap":    { "label": "Cap",                 "base": 16, "embroideryOk": true, "printOk": false, "oneSize": true },
+    "tote":   { "label": "Tote bag",            "base": 12, "embroideryOk": true, "oneSize": true }
+  },
+  "colors": [
+    { "name": "White",        "hex": "#FFFFFF" },
+    { "name": "Black",        "hex": "#1E1E1E" },
+    { "name": "Forest green", "hex": "#2C5F2D" },
+    { "name": "Gold",         "hex": "#F4CF2A" },
+    { "name": "Red",          "hex": "#B3302A" },
+    { "name": "Navy",         "hex": "#22304A" },
+    { "name": "Heather grey", "hex": "#B9BDB8" },
+    { "name": "Natural",      "hex": "#EFE7D6" }
+  ],
+  "sizes": ["XS", "S", "M", "L", "XL", "2XL", "3XL"],
+  "plusSizeUpcharge": 3,
+  "methods": {
+    "print":      { "label": "Full-color print (DTF)", "perSide": 7, "setup": 0 },
+    "embroidery": { "label": "Embroidery", "perLocation": 9, "setup": 35 }
+  },
+  "quantityDiscounts": [
+    { "min": 12,  "off": 0.10 },
+    { "min": 24,  "off": 0.15 },
+    { "min": 48,  "off": 0.20 },
+    { "min": 100, "off": 0.25 }
+  ],
+  "shipping": {
+    "pickupLabel": "Free local pickup in Chesterfield, VA",
+    "flatRate": 10,
+    "flatLabel": "Standard shipping (US)"
+  }
+}/*PRICING-END*/;
+Object.assign(window.ADDIS_CONFIG, window.ADDIS_PRICING);
+
+/* Cart preview switch (?cart=preview / ?cart=off) — no need to edit. */
+(function (C) {
+  try {
+    const p = new URLSearchParams(location.search).get("cart");
+    if (p === "preview") sessionStorage.setItem("al_cart_preview", "1");
+    if (p === "off") sessionStorage.removeItem("al_cart_preview");
+    C.cartOn = !!(C.checkout.enabled || sessionStorage.getItem("al_cart_preview"));
+  } catch (e) { C.cartOn = !!C.checkout.enabled; }
+  if (C.cartOn) C.showPrices = true;
+})(window.ADDIS_CONFIG);
