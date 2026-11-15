@@ -10,6 +10,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Source+Sans+3:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .about-kicker { font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: .9rem; color: var(--forest); margin: 0 0 12px; }
+    .page-hero .about-body { max-width: 56ch; margin: 14px 0 0; }
+    .about-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    .about-sub { font-family: var(--display); font-weight: 600; color: var(--forest); font-size: 1.2rem; margin: 10px 0 0; }
+    .about-intro { font-size: 1.15rem; max-width: 70ch; margin: -16px 0 28px; }
+    .name-meaning .amh { font-size: 1.6rem; font-weight: 600; color: var(--forest); margin-left: 10px; }
+    .about-belief { margin-top: 24px; padding: 28px 32px; border-left: 6px solid var(--gold); background: var(--mist); border-radius: var(--r-md); }
+    .about-belief-lead { margin: 0; font-weight: 600; }
+    .about-belief-text { font-family: var(--display); font-weight: 700; font-size: clamp(1.25rem, 2.4vw, 1.6rem); color: var(--ink); margin: 8px 0 0; line-height: 1.3; }
+  </style>
 </head>
 <body data-page="about">
   <header id="site-header"></header>
@@ -18,8 +29,13 @@
     <section class="page-hero">
       <div class="wrap split">
         <div>
-          <h1>Heritage you can wear, made for the people you wear it with</h1>
-          <p class="lede">From our home base in Chesterfield County, Addis Loom makes custom printed and embroidered apparel for families, churches, teams and small businesses across Richmond and Midlothian.</p>
+          <p class="about-kicker">About Addis Loom Custom Apparels</p>
+          <h1>Your Ideas. Our Craftsmanship. Made to Stand Out.</h1>
+          <p class="lede">At Addis Loom Custom Apparels, we create more than clothing — we bring your vision to life through quality, creativity, and personalized craftsmanship. Inspired by Ethiopian heritage and modern style, we specialize in custom embroidery, screen printing, DTF transfers, and branded apparel designed to make a lasting impression.</p>
+          <p class="about-body">From business uniforms and embroidered polos to team apparel, church event shirts, and personalized gifts, we help you turn your ideas into distinctive, comfortable, and professional-looking products that reflect your identity.</p>
+          <p class="about-body">Proudly serving Richmond, Chesterfield, Midlothian, and beyond, we combine attention to detail, quality materials, and personalized service to create apparel you'll be proud to wear.</p>
+          <p class="about-body"><strong>Have a design in mind? Let's bring it to life.</strong> Contact us today for a free, personalized quote!</p>
+          <div class="about-actions"><a class="btn" href="contact.html">Get a free quote</a><a class="btn ghost" href="design.html">Start a design</a></div>
         </div>
         <div class="work-media"><canvas data-idea="choir" width="500" height="560" role="img" aria-label="Example: choir T-shirt"></canvas></div>
       </div>
@@ -29,16 +45,22 @@
 
     <section class="section">
       <div class="wrap">
-        <div class="section-head"><h2>Where the name comes from</h2></div>
+        <div class="section-head"><h2>Where the Name Comes From</h2><p class="about-sub">Addis Loom — Where Heritage Meets Modern Creativity.</p></div>
+        <p class="about-intro">The name Addis Loom reflects our Ethiopian heritage, passion for craftsmanship, and vision for modern apparel.</p>
         <div class="name-meaning">
           <div>
-            <div class="word">Addis</div>
-            <p>Means "new," as in Addis Ababa, the "new flower." It stands for what we make: something new, built on something old.</p>
+            <div class="word">Addis <span class="amh" lang="am">አዲስ</span></div>
+            <p>“Addis” (አዲስ) means “new” in Amharic, symbolizing fresh ideas, innovation, and new beginnings.</p>
           </div>
           <div>
             <div class="word">Loom</div>
-            <p>The frame weavers use to make shema, the hand-woven cotton behind the habesha kemis and netela, finished with a colorful tibeb border. That border runs through our whole site.</p>
+            <p>“Loom” represents the timeless art of weaving, where individual threads come together to create something beautiful and meaningful.</p>
           </div>
+        </div>
+        <p class="about-intro" style="margin-top:32px">Together, Addis Loom represents the connection between tradition and innovation — bringing cultural inspiration, creativity, and modern design into every piece we create.</p>
+        <div class="about-belief">
+          <p class="about-belief-lead">Our name reflects a simple belief:</p>
+          <p class="about-belief-text">Every thread carries a story, every design expresses an identity, and every creation brings people together.</p>
         </div>
       </div>
     </section>
