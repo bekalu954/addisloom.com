@@ -116,8 +116,15 @@
             <p class="muted" style="margin-top:10px" id="estNote">Final price is confirmed on your proof. Shipping is added at invoice.</p>
           </div>
 
+          <div class="panel" id="cartPanel" hidden>
+            <h2>Order online</h2>
+            <p class="muted">Pay by card at checkout. We email you a proof before anything is made. Revisions are free, and you get a full refund if you cancel before production.</p>
+            <button class="btn gold" type="button" id="addToCart">Add to cart</button>
+            <div class="form-status" id="cartStatus" role="status"></div>
+          </div>
+
           <div class="panel">
-            <h2>Request a free quote</h2>
+            <h2 id="quoteHeading">Request a free quote</h2>
             <form id="orderForm" novalidate>
               <div class="form-grid">
                 <div class="field"><label for="oName">Name</label><input id="oName" name="name" type="text" required autocomplete="name"></div>
@@ -141,6 +148,7 @@
 
   <script src="assets/js/config.js"></script>
   <script src="assets/js/site.js"></script>
+  <script src="assets/js/cart.js"></script>
   <script src="assets/js/designer.js"></script>
 </body>
 </html>
