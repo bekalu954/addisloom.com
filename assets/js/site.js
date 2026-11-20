@@ -5,10 +5,79 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const money = (n) => "$" + (Math.round(n * 100) / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
+  /* ---------------- Apparel catalog ----------------
+     Categories and styles shown in the Apparel menu and on apparel.html.
+     garment: a design-studio product key from config.js (opens the studio);
+     leave it out and the style gets a "Request a quote" button instead.
+     shape/color/place only control the picture on apparel.html. */
+  const CATALOG = [
+    { slug: "t-shirts", name: "T-shirts", blurb: "Classic tees for events, teams, families and everyday wear.", items: [
+      { slug: "short-sleeve", name: "Short Sleeve", shape: "tee", color: "#FFFFFF", garment: "tee", desc: "Soft cotton crew-neck tees. Our most popular pick for events, teams and reunions." },
+      { slug: "long-sleeve", name: "Long Sleeve", shape: "longtee", color: "#22304A", desc: "Full-length sleeves for cooler days, with room for a sleeve print too." },
+      { slug: "pocket", name: "Pocket T-Shirts", shape: "pockettee", color: "#B9BDB8", place: "chest", desc: "A chest pocket adds a classic touch. Great for small logos above the pocket." },
+      { slug: "tall", name: "Tall Sizes", shape: "talltee", color: "#1E1E1E", desc: "Extra body length for taller builds, in tall sizes LT through 4XLT." }] },
+    { slug: "hoodies-sweatshirts", name: "Hoodies & Sweatshirts", blurb: "Warm layers for schools, crews, reunions and cold-weather teams.", items: [
+      { slug: "pullover-hoodies", name: "Pullover Hoodies", shape: "hoodie", color: "#2C5F2D", garment: "hoodie", desc: "Cozy fleece pullovers with a front pouch pocket and lined hood." },
+      { slug: "zip-hoodies", name: "Zip-Up Hoodies", shape: "ziphoodie", color: "#1E1E1E", place: "chest", desc: "Full-zip hoodies. Left-chest logo on the front, big design on the back." },
+      { slug: "crewneck-sweatshirts", name: "Crewneck Sweatshirts", shape: "crew", color: "#B9BDB8", garment: "crew", desc: "A clean, classic sweatshirt for classes, clubs and families." },
+      { slug: "quarter-zips", name: "Quarter-Zip Pullovers", shape: "quarterzip", color: "#22304A", place: "chest", desc: "A polished pullover that works for the office, the sideline and travel." }] },
+    { slug: "hats", name: "Hats", blurb: "Embroidered caps and beanies that carry your logo everywhere.", items: [
+      { slug: "baseball-caps", name: "Baseball Caps", shape: "cap", color: "#22304A", garment: "cap", desc: "Structured six-panel caps with a curved bill. Embroidered front logo." },
+      { slug: "trucker-hats", name: "Trucker Hats", shape: "trucker", color: "#1E1E1E", desc: "Foam or cotton front with a breathable mesh back and snap closure." },
+      { slug: "dad-hats", name: "Dad Hats", shape: "cap", color: "#EFE7D6", desc: "Relaxed, unstructured cotton caps with an adjustable strap." },
+      { slug: "beanies", name: "Beanies", shape: "beanie", color: "#B3302A", desc: "Knit beanies with a fold-over cuff, perfect for an embroidered logo." },
+      { slug: "bucket-hats", name: "Bucket Hats", shape: "bucket", color: "#EFE7D6", desc: "Soft cotton bucket hats for summer events, festivals and outdoor crews." }] },
+    { slug: "jackets-vests", name: "Jackets & Vests", blurb: "Outerwear for staff, coaches and teams, finished with embroidery.", items: [
+      { slug: "fleece-jackets", name: "Fleece Jackets", shape: "jacket", color: "#22304A", place: "chest", desc: "Warm full-zip fleece with a stand-up collar." },
+      { slug: "soft-shell-jackets", name: "Soft Shell Jackets", shape: "softshell", color: "#1E1E1E", place: "chest", desc: "Wind- and water-resistant shells with a smooth face that shows logos well." },
+      { slug: "windbreakers", name: "Windbreakers", shape: "windbreaker", color: "#2C5F2D", place: "chest", desc: "Lightweight hooded jackets for sidelines, travel and events." },
+      { slug: "vests", name: "Vests", shape: "vest", color: "#1E1E1E", place: "chest", desc: "Fleece and puffer vests. A favorite for business teams." },
+      { slug: "work-jackets", name: "Work Jackets", shape: "workjacket", color: "#7A5A3A", place: "chest", desc: "Tough canvas and lined jackets built for job sites." }] },
+    { slug: "polo-shirts", name: "Polo Shirts", blurb: "Sharp, embroidered polos for staff, golf outings and church events.", items: [
+      { slug: "classic-polos", name: "Classic Polos", shape: "polo", color: "#FFFFFF", garment: "polo", place: "chest", desc: "Pique cotton polos with a three-button placket and knit collar." },
+      { slug: "performance-polos", name: "Performance Polos", shape: "polo", color: "#22304A", place: "chest", desc: "Moisture-wicking, wrinkle-resistant polos that stay sharp all day." },
+      { slug: "long-sleeve-polos", name: "Long Sleeve Polos", shape: "longpolo", color: "#2C5F2D", place: "chest", desc: "Polo styling with full sleeves for cooler seasons." },
+      { slug: "womens-polos", name: "Women's Polos", shape: "polo", color: "#B3302A", place: "chest", desc: "Polos cut for a tailored women's fit." }] },
+    { slug: "activewear", name: "Activewear", blurb: "Performance gear for teams, races, gyms and fun runs.", items: [
+      { slug: "performance-shirts", name: "Performance Shirts", shape: "perftee", color: "#1E66C5", desc: "Lightweight, moisture-wicking shirts for races, practices and summer events." },
+      { slug: "team-jerseys", name: "Team Jerseys", shape: "jersey", color: "#B3302A", desc: "Jerseys with team names on the front and player names and numbers on the back." },
+      { slug: "tank-tops", name: "Tank Tops", shape: "tank", color: "#FFFFFF", desc: "Sleeveless tops for the gym, beach and hot-weather events." },
+      { slug: "athletic-quarter-zips", name: "Athletic Quarter-Zips", shape: "quarterzip", color: "#1E1E1E", place: "chest", desc: "Stretchy performance quarter-zips for coaches and warm-ups." },
+      { slug: "shorts", name: "Shorts", shape: "shorts", color: "#22304A", place: "leg", desc: "Athletic and fleece shorts with a small logo on the leg." }] },
+    { slug: "business-apparel", name: "Business Apparel", blurb: "Professional looks with your logo, for offices, front desks and events.", items: [
+      { slug: "business-polos", name: "Polos", shape: "polo", color: "#1E1E1E", garment: "polo", place: "chest", desc: "The easiest way to put your whole team in a branded look." },
+      { slug: "dress-shirts", name: "Dress Shirts", shape: "dressshirt", color: "#FFFFFF", place: "chest", desc: "Button-down shirts with a neat embroidered logo on the chest." },
+      { slug: "business-quarter-zips", name: "Quarter-Zip Pullovers", shape: "quarterzip", color: "#B9BDB8", place: "chest", desc: "Smart layers for client meetings and trade shows." },
+      { slug: "business-vests", name: "Vests", shape: "vest", color: "#22304A", place: "chest", desc: "Layer over a dress shirt or polo for a polished team look." },
+      { slug: "sweaters", name: "Sweaters", shape: "sweater", color: "#2C5F2D", place: "chest", desc: "Knit sweaters and cardigans with a subtle stitched logo." }] },
+    { slug: "workwear-uniforms", name: "Workwear & Uniforms", blurb: "Durable uniforms for crews, kitchens, clinics and service teams.", items: [
+      { slug: "work-shirts", name: "Work Shirts", shape: "workshirt", color: "#22304A", place: "chest", desc: "Tough button-up shirts with chest pockets and a name or logo patch." },
+      { slug: "safety-apparel", name: "Safety Apparel", shape: "safetyvest", color: "#D9F20B", place: "back", desc: "High-visibility vests and shirts with your company name on the back." },
+      { slug: "aprons", name: "Aprons", shape: "apron", color: "#1E1E1E", desc: "Kitchen, cafe and shop aprons with your logo front and center." },
+      { slug: "scrubs", name: "Scrubs", shape: "scrubs", color: "#0E8F8A", place: "chest", desc: "Comfortable scrub tops with an embroidered name or practice logo." },
+      { slug: "uniform-work-jackets", name: "Work Jackets", shape: "workjacket", color: "#1E1E1E", place: "chest", desc: "Lined work jackets that keep your crew warm and recognizable." }] }
+  ];
+
   /* ---------------- Header & footer ---------------- */
   const page = document.body.dataset.page || "";
+  const chevron = '<svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  const apparelMenu = `
+    <div class="nav-drop">
+      <a class="nav-drop-link" href="apparel.html"${page === "apparel" ? ' aria-current="page"' : ""} aria-haspopup="true">Apparel ${chevron}</a>
+      <div class="mega" aria-label="Apparel categories">
+        <div class="wrap mega-grid">
+          ${CATALOG.map((c) => `<div class="mega-col">
+            <a class="mega-cat" href="apparel.html#${c.slug}">${c.name}</a>
+            <ul>
+              <li><a href="apparel.html#${c.slug}">Shop All</a></li>
+              ${c.items.map((i) => `<li><a href="apparel.html#${c.slug}/${i.slug}">${i.name}</a></li>`).join("")}
+            </ul>
+          </div>`).join("")}
+        </div>
+        <div class="wrap mega-foot"><a href="apparel.html">Shop all apparel →</a><a href="design.html">Start a design →</a></div>
+      </div>
+    </div>`;
   const links = [
-    ["services", "services.html", "Services"],
     ["embroidery", "embroidery.html", "Embroidery"],
     ["contact", "contact.html", "Bulk orders"],
     ["about", "about.html", "About"]
@@ -27,6 +96,7 @@
         </a>
         <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
         <nav class="nav" id="primary-nav" aria-label="Main">
+          ${apparelMenu}
           ${links.map(([k, href, label]) => `<a href="${href}"${k === page ? ' aria-current="page"' : ""}>${label}</a>`).join("")}
           ${C.cartOn ? `<a class="cart-link" href="cart.html" aria-label="Cart"${page === "cart" ? ' aria-current="page"' : ""}><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21.5 7H6"/></svg><span class="nav-cart-text">Cart</span><span class="cart-count" data-cart-count${cartCount() ? "" : " hidden"}>${cartCount()}</span></a>` : ""}
           <a class="btn small gold" href="design.html">Start a design</a>
@@ -39,6 +109,12 @@
       t.setAttribute("aria-expanded", open);
       t.textContent = open ? "Close" : "Menu";
     });
+    // Close the Apparel menu after a choice (same-page links only change the #hash) or on Escape.
+    const drop = $(".nav-drop", header);
+    drop.addEventListener("click", (e) => { if (e.target.closest(".mega a")) drop.classList.add("closed"); });
+    drop.addEventListener("mouseleave", () => drop.classList.remove("closed"));
+    drop.addEventListener("keydown", (e) => { if (e.key === "Escape") { drop.classList.add("closed"); $(".nav-drop-link", drop).focus(); } });
+    drop.addEventListener("focusin", (e) => { if (e.target.classList.contains("nav-drop-link")) drop.classList.remove("closed"); });
   }
 
   const footer = $("#site-footer");
@@ -56,6 +132,7 @@
           <div>
             <h4>Make something</h4>
             <ul>
+              <li><a href="apparel.html">Apparel</a></li>
               <li><a href="services.html">Services</a></li>
               <li><a href="design.html">Design studio</a></li>
               <li><a href="embroidery.html">Embroidery &amp; logos</a></li>
@@ -287,7 +364,7 @@
       <footer><strong>${esc(r.name || "Customer")}</strong>${r.detail ? `<span>${esc(r.detail)}</span>` : ""}</footer></blockquote>`).join("");
   }
 
-  window.Addis = { config: C, money, esc, drawGarment, AREAS, isDark, drawMockup, paintIdeas, renderWork, renderReviews };
+  window.Addis = { config: C, catalog: CATALOG, money, esc, drawGarment, AREAS, isDark, drawMockup, paintIdeas, renderWork, renderReviews };
   renderWork(document.querySelector("[data-work]"), +(document.querySelector("[data-work]")?.dataset.work || 6));
   renderReviews(document.querySelector("[data-reviews]"));
   paintIdeas(document);
