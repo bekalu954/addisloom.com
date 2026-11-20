@@ -35,7 +35,7 @@
           <p class="lede">At Addis Loom Custom Apparels, we create more than clothing — we bring your vision to life through quality, creativity, and personalized craftsmanship. Inspired by Ethiopian heritage and modern style, we specialize in custom embroidery, screen printing, DTF transfers, and branded apparel designed to make a lasting impression.</p>
           <p class="about-body">From business uniforms and embroidered polos to team apparel, church event shirts, and personalized gifts, we help you turn your ideas into distinctive, comfortable, and professional-looking products that reflect your identity.</p>
           <p class="about-body">Proudly serving Richmond, Chesterfield, Midlothian, and beyond, we combine attention to detail, quality materials, and personalized service to create apparel you'll be proud to wear.</p>
-          <p class="about-body"><strong>Have a design in mind? Let's bring it to life.</strong> Contact us today for a free, personalized quote!</p>
+          <p class="about-body"><strong>Have a design in mind? Let's bring it to life.</strong> Browse our products or start your own design today!</p>
           <div class="about-actions"><a class="btn" href="apparel.html">Browse products</a><a class="btn ghost" href="design.html">Start a design</a></div>
         </div>
         <div class="work-media about-photo"><img src="assets/img/about-apparel.webp" width="1536" height="1024" alt="People wearing custom apparel with a Your Design Here mockup: a T-shirt, hoodie, cap and polo, soft shell jacket, quarter-zip, blazer, safety vest and tote bag"></div>
@@ -111,7 +111,6 @@
       if (b.phone) items.push(`Phone: <a href="tel:${esc(b.phone.replace(/[^\d+]/g, ""))}">${esc(b.phone)}</a>`);
       if (b.serviceArea) items.push(esc(b.serviceArea));
       if (b.instagram) items.push(`Instagram: <a href="${esc(b.instagram)}" target="_blank" rel="noopener">follow our work</a>`);
-      items.push(`Browse the <a href="shop.html">heritage collection</a>`);
       document.getElementById("contactList").innerHTML = items.map((i) => `<li>${i}</li>`).join("");
       paintIdeas();
     })();
