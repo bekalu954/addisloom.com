@@ -9,7 +9,7 @@ Plain HTML/CSS/JS, no build step. Hosted on GitHub Pages with the domain on Clou
 | `index.html` | Home: live T-shirt try-on, services, how ordering works, pricing, FAQ |
 | `services.html` | Every service: printing, embroidery, uniforms, church & event orders, gifts, design help |
 | `about.html` | Story, meaning of the name, values, reviews, contact |
-| `design.html` | Design studio: pick a garment and color, add text (incl. Amharic) or upload a logo, drag to place, choose print or embroidery, enter sizes, see a live price, send for a proof |
+| `design.html` | Design Lab: full-screen studio with a tool rail (Templates, Product Details, Upload, Add Text, Add Art, Names & Numbers, Change Products), front/back views, drag/resize/rotate handles, curved and outlined text (incl. Amharic), clip art, undo/redo, autosave with "Welcome back", Save \| Share, and Get Price → add to cart or request a quote. Code: `assets/js/designer.js`, `assets/js/art-library.js` (add clip art there), `assets/css/design-lab.css` |
 | `embroidery.html` | Embroidery services and quote form |
 | `shop.html` | Heritage collection with category filters and Amazon / Walmart / Buy now buttons |
 | `contact.html` | Bulk and group order request form |
