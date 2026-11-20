@@ -510,7 +510,7 @@
   /* ---------------- Panels ---------------- */
   const ICON = {
     upload: '<svg viewBox="0 0 64 64"><path d="M18 46a12 12 0 0 1-2-24A16 16 0 0 1 47 20a11 11 0 0 1 1 26"/><path d="M32 30v24m-8-16 8-8 8 8"/></svg>',
-    text: '<svg viewBox="0 0 64 64"><rect x="6" y="16" width="52" height="32" rx="3"/><path d="M16 26h4v12m-4 0h8M30 38V26h5a3 3 0 0 1 0 6h-5h6a3 3 0 0 1 0 6h-6M50 28a5 5 0 1 0 0 8M44 22v20"/></svg>',
+    text: '<svg viewBox="0 0 64 64"><rect x="6" y="16" width="52" height="32" rx="3"/><text x="28" y="38" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="currentColor" stroke="none">abc</text><path d="M46 23v18"/></svg>',
     art: '<svg viewBox="0 0 64 64"><rect x="8" y="12" width="48" height="40" rx="3"/><path d="m8 44 14-14 12 12 8-8 14 14"/><circle cx="42" cy="24" r="4"/></svg>',
     products: '<svg viewBox="0 0 64 64"><path d="M22 10 8 18l4 12 6-3v25h26V27l6 3 4-12-14-8c-1 4-5 6-9 6s-8-2-9-6Z"/><rect x="40" y="34" width="18" height="22" rx="2"/><path d="M45 34v-4a4 4 0 0 1 8 0v4"/></svg>',
     ideas: '<svg viewBox="0 0 64 64"><path d="M32 8l4 10 10 4-10 4-4 10-4-10-10-4 10-4Z"/><path d="M48 36l2 6 6 2-6 2-2 6-2-6-6-2 6-2ZM16 38l2 5 5 2-5 2-2 5-2-5-5-2 5-2Z"/></svg>',
