@@ -79,7 +79,6 @@
     </div>`;
   const links = [
     ["embroidery", "embroidery.html", "Embroidery"],
-    ["contact", "contact.html", "Bulk orders"],
     ["about", "about.html", "About"]
   ];
   const cartCount = () => { try { return (JSON.parse(localStorage.getItem("al_cart_v1")) || []).length; } catch (e) { return 0; } };
