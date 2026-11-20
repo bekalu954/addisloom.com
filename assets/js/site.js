@@ -135,7 +135,6 @@
               <li><a href="services.html">Services</a></li>
               <li><a href="design.html">Design studio</a></li>
               <li><a href="embroidery.html">Embroidery &amp; logos</a></li>
-              <li><a href="contact.html">Bulk &amp; group orders</a></li>
               <li><a href="about.html">About Addis Loom</a></li>
             </ul>
           </div>
